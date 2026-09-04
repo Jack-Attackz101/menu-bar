@@ -1,0 +1,18 @@
+# Xcode
+xcuserdata/
+DerivedData/
+*.xccheckout
+*.moved-aside
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+*.playground
+
+# Swift / SPM
+.build/
+.swiftpm/
+
+# OS
+.DS_Store
+**/.DS_Store
