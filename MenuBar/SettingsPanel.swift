@@ -7,13 +7,9 @@ struct SettingsPanel: View {
     var body: some View {
         CreamPanelChrome(width: Theme.settingsPanelWidth) {
             VStack(alignment: .leading, spacing: 10) {
-                Text("Settings")
+                Text("bardeck")
                     .font(.system(size: 13, weight: .semibold))
                     .foregroundStyle(Theme.ink)
-
-                Text("Working label: Menu Bar. No product name.")
-                    .font(.system(size: 11))
-                    .foregroundStyle(Theme.ink.opacity(0.7))
 
                 Button("Open Control Center settings") {
                     if let url = URL(string: "x-apple.systempreferences:com.apple.ControlCenter-Settings.extension") {

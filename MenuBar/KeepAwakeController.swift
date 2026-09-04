@@ -28,7 +28,7 @@ final class KeepAwakeController: ObservableObject {
     func start() {
         if isEnabled { return }
 
-        let reason = "Menu Bar keep-awake" as CFString
+        let reason = "Bardeck keep-awake" as CFString
         displayAssertion = createAssertion(
             type: kIOPMAssertionTypePreventUserIdleDisplaySleep as CFString,
             name: reason

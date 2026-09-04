@@ -1,8 +1,8 @@
-# Menu Bar
+# Bardeck
 
 Host app that puts widgets **on the menu bar** as separate status items, plus a Bartender-style overflow that can hide extras to the left of a public spacer.
 
-Working display name: **Menu Bar**. No product name. Neutral cream/ink host mark (three filled dots) — not a fruit stamp.
+Display name: **Bardeck**. Settings header: **bardeck**. Neutral cream/ink host mark (three filled dots) — not a fruit stamp.
 
 Requires **macOS 14+** and **Xcode 15+**. No macOS 15-only APIs (`containerBackground` is not used).
 
@@ -60,10 +60,10 @@ This tree was written on Linux and has not been compiled here.
 ## QA
 
 - Five widget chips plus the cream host mark are **on the bar**, not inside one list.
-- Keep awake: click the yellow/cream chip → `pmset -g assertions` shows `Menu Bar keep-awake`. Click again to clear. Closing nothing should drop it — there is no widget panel to close.
+- Keep awake: click the yellow/cream chip → `pmset -g assertions` shows `Bardeck keep-awake`. Click again to clear. Closing nothing should drop it — there is no widget panel to close.
 - CPU chip updates after a couple of seconds.
 - Overflow: ⌘-drag another extra left of the tick, collapse, confirm it is gone; expand, confirm it returns.
-- Overflow panel is cream, 16px corners. Settings / Quit are there, secondary.
+- Overflow panel is cream, 16px corners. Settings header is lowercase **bardeck**. Quit is secondary.
 - No mango / fruit tray identity.
 
 ## Later
