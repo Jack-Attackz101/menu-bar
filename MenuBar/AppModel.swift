@@ -36,15 +36,13 @@ final class AppModel: ObservableObject {
     private let expandedKey = "overflowExpanded"
 
     private init() {
-        if let stored = UserDefaults.standard.array(forKey: visibleKey) as? [String] {
-            visibleWidgets = Set(stored.compactMap(BarWidget.init(rawValue:)))
-            if visibleWidgets.isEmpty {
-                visibleWidgets = Set(BarWidget.allCases)
-            }
-        } else {
-            visibleWidgets = Set(BarWidget.allCases)
-        }
-        overflowExpanded = UserDefaults.standard.object(forKey: expandedKey) as? Bool ?? true
+        let stored = UserDefaults.standard.array(forKey: visibleKey) as? [String]
+        let parsed = Set((stored ?? []).compactMap(BarWidget.init(rawValue:)))
+        let visible = parsed.isEmpty ? Set(BarWidget.allCases) : parsed
+        let expanded = UserDefaults.standard.object(forKey: expandedKey) as? Bool ?? true
+
+        visibleWidgets = visible
+        overflowExpanded = expanded
         accessibilityTrusted = MenuBarEnumerator.isTrusted()
     }
 
