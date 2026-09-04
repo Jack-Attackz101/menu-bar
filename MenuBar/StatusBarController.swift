@@ -64,7 +64,6 @@ final class StatusBarController: NSObject {
         item.autosaveName = autosave
         item.isVisible = true
         item.button?.imagePosition = .imageOnly
-        item.button?.highlightsBy = []
         return item
     }
 
