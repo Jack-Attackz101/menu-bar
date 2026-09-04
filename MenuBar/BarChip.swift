@@ -1,68 +1,76 @@
 import SwiftUI
 
-struct BarChip<Icon: View>: View {
-    var fill: Color
+struct GlassChip<Icon: View>: View {
     var label: String
+    var mesh: Double = 0.42
     @ViewBuilder var icon: () -> Icon
 
     var body: some View {
-        HStack(spacing: 4) {
+        HStack(spacing: 5) {
             icon()
                 .frame(width: 11, height: 11)
             Text(label)
-                .font(.system(size: 11, weight: .semibold, design: .rounded))
+                .font(.system(size: 11, weight: .medium, design: .default))
                 .monospacedDigit()
         }
-        .foregroundStyle(Theme.ink)
-        .padding(.horizontal, 7)
-        .padding(.vertical, 2)
-        .background(fill, in: Capsule(style: .circular))
+        .foregroundStyle(Theme.text)
+        .padding(.horizontal, 9)
+        .padding(.vertical, 3)
+        .background {
+            GlassBackdrop(corner: Theme.chipCorner, mesh: mesh)
+        }
     }
 }
 
 enum ChipArtwork {
     static func weather(label: String) -> some View {
-        BarChip(fill: Theme.weather, label: label) {
-            HandmadeMarks.Cloud().fill(Theme.ink)
+        GlassChip(label: label, mesh: 0.50) {
+            ThinIcons.Cloud().stroke(Theme.text, lineWidth: ThinIcons.line)
         }
     }
 
     static func quota(label: String) -> some View {
-        BarChip(fill: Theme.cream, label: label) {
-            HandmadeMarks.Quota().fill(Theme.ink)
+        GlassChip(label: label, mesh: 0.38) {
+            ThinIcons.Quota().stroke(Theme.text, lineWidth: ThinIcons.line)
         }
     }
 
     static func cpu(label: String) -> some View {
-        BarChip(fill: Theme.cream, label: label) {
-            HandmadeMarks.CPUBars().fill(Theme.ink)
+        GlassChip(label: label, mesh: 0.40) {
+            ThinIcons.CPU().stroke(Theme.text, lineWidth: ThinIcons.line)
         }
     }
 
     static func calendar(label: String) -> some View {
-        BarChip(fill: Theme.cream, label: label) {
-            HandmadeMarks.Calendar().fill(Theme.ink)
+        GlassChip(label: label, mesh: 0.36) {
+            ThinIcons.Calendar().stroke(Theme.text, lineWidth: ThinIcons.line)
         }
     }
 
     static func keepAwake(on: Bool) -> some View {
-        BarChip(fill: on ? Theme.keepAwake : Theme.cream, label: on ? "On" : "Off") {
-            HandmadeMarks.Sun().fill(Theme.ink)
+        GlassChip(label: on ? "On" : "Off", mesh: on ? 0.62 : 0.28) {
+            ThinIcons.Bolt().stroke(Theme.text, lineWidth: ThinIcons.line)
         }
     }
 
     static func overflow() -> some View {
-        HandmadeMarks.HostDots()
-            .fill(Theme.ink)
-            .frame(width: 16, height: 12)
-            .padding(.horizontal, 7)
-            .padding(.vertical, 3)
-            .background(Theme.cream, in: Capsule(style: .circular))
+        ThinIcons.Spade()
+            .stroke(Theme.text, lineWidth: ThinIcons.line)
+            .frame(width: 13, height: 13)
+            .padding(.horizontal, 8)
+            .padding(.vertical, 4)
+            .background {
+                GlassBackdrop(corner: Theme.chipCorner, mesh: 0.48)
+            }
     }
 
     static func hideTick() -> some View {
-        HandmadeMarks.HideTick()
-            .fill(Theme.cream)
+        ThinIcons.Tick()
+            .stroke(Theme.text.opacity(0.8), lineWidth: 1.1)
             .frame(width: 8, height: 14)
+            .padding(.horizontal, 3)
+            .background {
+                GlassBackdrop(corner: 8, mesh: 0.30)
+            }
     }
 }

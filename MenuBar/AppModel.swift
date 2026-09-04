@@ -21,7 +21,7 @@ enum BarWidget: String, CaseIterable, Identifiable {
     }
 }
 
-/// Shared UI state for bar visibility, overflow collapse, and the cream panels.
+/// Shared UI state for bar visibility, overflow collapse, and glass panels.
 final class AppModel: ObservableObject {
     static let shared = AppModel()
 

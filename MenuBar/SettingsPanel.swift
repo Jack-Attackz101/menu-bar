@@ -5,32 +5,38 @@ struct SettingsPanel: View {
     @ObservedObject var model: AppModel
 
     var body: some View {
-        CreamPanelChrome(width: Theme.settingsPanelWidth) {
+        GlassPanelChrome(width: Theme.settingsPanelWidth) {
             VStack(alignment: .leading, spacing: 10) {
-                Text("bardeck")
-                    .font(.system(size: 13, weight: .semibold))
-                    .foregroundStyle(Theme.ink)
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("super spade")
+                        .font(.system(size: 15, weight: .semibold, design: .default))
+                        .tracking(0.6)
+                        .foregroundStyle(Theme.islandText)
+                    Text("Super Spade 1.0")
+                        .font(.system(size: 11, weight: .regular))
+                        .foregroundStyle(Theme.islandMuted)
+                }
 
                 Button("Open Control Center settings") {
                     if let url = URL(string: "x-apple.systempreferences:com.apple.ControlCenter-Settings.extension") {
                         NSWorkspace.shared.open(url)
                     }
                 }
-                .buttonStyle(CreamInkButtonStyle())
+                .buttonStyle(GlassActionButtonStyle())
 
                 Button("Refresh extra list") {
                     model.refreshExtras()
                 }
                 .buttonStyle(.plain)
                 .font(.system(size: 12, weight: .medium))
-                .foregroundStyle(Theme.ink.opacity(0.75))
+                .foregroundStyle(Theme.islandMuted)
 
                 HStack {
                     Spacer()
                     Button("Quit") { NSApplication.shared.terminate(nil) }
                         .buttonStyle(.plain)
                         .font(.system(size: 12, weight: .medium))
-                        .foregroundStyle(Theme.ink.opacity(0.7))
+                        .foregroundStyle(Theme.islandMuted)
                 }
             }
         }

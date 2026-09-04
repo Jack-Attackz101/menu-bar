@@ -1,7 +1,7 @@
 import AppKit
 import SwiftUI
 
-/// Borderless cream popover parked under a status item. macOS 14 path — no containerBackground.
+/// Borderless glass popover parked under a status item. macOS 14 path — no containerBackground.
 final class PanelPresenter {
     private var panel: NSPanel?
     private var monitor: Any?
@@ -20,7 +20,7 @@ final class PanelPresenter {
         )
         panel.isOpaque = false
         panel.backgroundColor = .clear
-        panel.hasShadow = false
+        panel.hasShadow = true
         panel.level = .statusBar
         panel.collectionBehavior = [.transient, .moveToActiveSpace, .fullScreenAuxiliary]
         panel.isFloatingPanel = true

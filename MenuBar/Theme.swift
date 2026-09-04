@@ -1,23 +1,29 @@
 import AppKit
 import SwiftUI
 
-/// Mira tokens. Match these hex values exactly.
+/// Super Spade 1.0 — aurora glass. Not cream/ink product chrome.
 enum Theme {
-    static let ink = Color(hex: 0x24211D)
-    static let cream = Color(hex: 0xFFF9ED)
-    static let weather = Color(hex: 0xBFDDF3)
-    static let keepAwake = Color(hex: 0xFFC928)
+    static let peach = Color(hex: 0xFFD4C2)
+    static let pink = Color(hex: 0xFFC2D6)
+    static let lavender = Color(hex: 0xD4C8FF)
+    static let sky = Color(hex: 0xC2E4FF)
+    static let teal = Color(hex: 0xB6F0E6)
 
-    static let cornerRadius: CGFloat = 16
-    /// Print shadow once: `4px 4px 0 ink` — hard offset, no blur.
-    static let printShadowOffset: CGFloat = 4
-    static let overflowPanelWidth: CGFloat = 260
-    static let settingsPanelWidth: CGFloat = 220
+    /// Chip glyphs sit on aurora mesh.
+    static let text = Color.white.opacity(0.92)
+    static let textMuted = Color.white.opacity(0.62)
 
-    static let inkNS = NSColor(srgbRed: 0x24 / 255, green: 0x21 / 255, blue: 0x1D / 255, alpha: 1)
-    static let creamNS = NSColor(srgbRed: 0xFF / 255, green: 0xF9 / 255, blue: 0xED / 255, alpha: 1)
-    static let weatherNS = NSColor(srgbRed: 0xBF / 255, green: 0xDD / 255, blue: 0xF3 / 255, alpha: 1)
-    static let keepAwakeNS = NSColor(srgbRed: 0xFF / 255, green: 0xC9 / 255, blue: 0x28 / 255, alpha: 1)
+    /// Island / panel type on frost. Adapts with the material.
+    static let islandText = Color.primary
+    static let islandMuted = Color.secondary
+
+    static let chipCorner: CGFloat = 12
+    static let islandCorner: CGFloat = 22
+    static let panelCorner: CGFloat = 22
+
+    static let overflowPanelWidth: CGFloat = 268
+    static let settingsPanelWidth: CGFloat = 228
+    static let islandWidth: CGFloat = 228
 }
 
 extension Color {
@@ -29,5 +35,44 @@ extension Color {
             blue: Double(hex & 0xFF) / 255,
             opacity: opacity
         )
+    }
+}
+
+struct AuroraMesh: View {
+    var intensity: Double = 0.5
+
+    var body: some View {
+        ZStack {
+            LinearGradient(
+                colors: [Theme.peach, Theme.pink.opacity(0.85)],
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+            LinearGradient(
+                colors: [Theme.lavender.opacity(0.75), Theme.sky.opacity(0.55), Theme.teal.opacity(0.7)],
+                startPoint: .bottomLeading,
+                endPoint: .topTrailing
+            )
+        }
+        .opacity(intensity)
+        .allowsHitTesting(false)
+    }
+}
+
+struct GlassBackdrop: View {
+    var corner: CGFloat
+    var mesh: Double = 0.45
+
+    var body: some View {
+        RoundedRectangle(cornerRadius: corner, style: .continuous)
+            .fill(.ultraThinMaterial)
+            .overlay {
+                AuroraMesh(intensity: mesh)
+                    .clipShape(RoundedRectangle(cornerRadius: corner, style: .continuous))
+            }
+            .overlay {
+                RoundedRectangle(cornerRadius: corner, style: .continuous)
+                    .strokeBorder(Color.white.opacity(0.42), lineWidth: 0.6)
+            }
     }
 }

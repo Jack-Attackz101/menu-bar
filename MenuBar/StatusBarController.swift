@@ -2,6 +2,11 @@ import AppKit
 import Combine
 import SwiftUI
 
+/// Hosts that ignore hits so `NSStatusBarButton` still receives clicks.
+final class ClickThroughHostingView: NSHostingView<AnyView> {
+    override func hitTest(_ point: NSPoint) -> NSView? { nil }
+}
+
 /// Owns every status item. Created first → sits further right on the bar.
 @MainActor
 final class StatusBarController: NSObject {
@@ -9,6 +14,7 @@ final class StatusBarController: NSObject {
     private let keepAwake = KeepAwakeController.shared
     private let cpu = CPUMonitor.shared
     private let presenter = PanelPresenter()
+    private let islands = HoverIslandPresenter()
 
     private var overflowItem: NSStatusItem!
     private var keepAwakeItem: NSStatusItem!
@@ -28,14 +34,14 @@ final class StatusBarController: NSObject {
         cpuItem = makeItem(autosave: "MenuBar.cpu", length: NSStatusItem.variableLength)
         quotaItem = makeItem(autosave: "MenuBar.quota", length: NSStatusItem.variableLength)
         weatherItem = makeItem(autosave: "MenuBar.weather", length: NSStatusItem.variableLength)
-        hideItem = makeItem(autosave: "MenuBar.hide", length: 10)
+        hideItem = makeItem(autosave: "MenuBar.hide", length: 16)
 
         overflowItem.button?.toolTip = "Show or hide extras"
         keepAwakeItem.button?.toolTip = "Keep awake"
-        calendarItem.button?.toolTip = "Calendar (stub)"
+        calendarItem.button?.toolTip = "Calendar"
         cpuItem.button?.toolTip = "CPU"
-        quotaItem.button?.toolTip = "Quota (stub)"
-        weatherItem.button?.toolTip = "Weather (stub)"
+        quotaItem.button?.toolTip = "Quota"
+        weatherItem.button?.toolTip = "Weather"
         hideItem.button?.toolTip = "⌘-drag extras left of this tick to hide them when collapsed"
 
         overflowItem.button?.target = self
@@ -51,6 +57,7 @@ final class StatusBarController: NSObject {
 
     func teardown() {
         keepAwake.stop()
+        islands.hide()
         presenter.dismiss()
         for item in [overflowItem, keepAwakeItem, calendarItem, cpuItem, quotaItem, weatherItem, hideItem] {
             if let item {
@@ -80,6 +87,7 @@ final class StatusBarController: NSObject {
                 self?.applyHideTick(expanded: expanded)
                 if !expanded {
                     self?.presenter.dismiss()
+                    self?.islands.hide()
                 }
             }
             .store(in: &observers)
@@ -88,6 +96,7 @@ final class StatusBarController: NSObject {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] open in
                 if open {
+                    self?.islands.hide()
                     self?.presentOverflow()
                 }
             }
@@ -96,7 +105,10 @@ final class StatusBarController: NSObject {
         model.$settingsPanelOpen
             .receive(on: DispatchQueue.main)
             .sink { [weak self] open in
-                if open { self?.presentSettings() }
+                if open {
+                    self?.islands.hide()
+                    self?.presentSettings()
+                }
             }
             .store(in: &observers)
 
@@ -114,10 +126,10 @@ final class StatusBarController: NSObject {
     private func applyAll() {
         applyKeepAwakeChip()
         applyCPUChip()
-        applyStubChip(weatherItem, view: ChipArtwork.weather(label: "—"))
-        applyStubChip(quotaItem, view: ChipArtwork.quota(label: "—"))
-        applyStubChip(calendarItem, view: ChipArtwork.calendar(label: "—"))
-        applyStubChip(overflowItem, view: ChipArtwork.overflow())
+        applyHoverChip(weatherItem, kind: .weather, view: ChipArtwork.weather(label: "—"), length: 54)
+        applyHoverChip(quotaItem, kind: .quota, view: ChipArtwork.quota(label: "—"), length: 56)
+        applyHoverChip(calendarItem, kind: .calendar, view: ChipArtwork.calendar(label: "—"), length: 50)
+        installClickThrough(overflowItem, view: ChipArtwork.overflow(), length: 34)
         applyVisibility()
         applyHideTick(expanded: true)
         applyHideLength(expanded: true)
@@ -134,38 +146,84 @@ final class StatusBarController: NSObject {
     }
 
     private func applyHideLength(expanded: Bool) {
-        hideItem.length = expanded ? 10 : Self.collapseLength()
+        hideItem.length = expanded ? 16 : Self.collapseLength()
     }
 
     private func applyHideTick(expanded: Bool) {
         if expanded {
-            applyStubChip(hideItem, view: ChipArtwork.hideTick())
+            installClickThrough(hideItem, view: ChipArtwork.hideTick(), length: 16)
         } else {
+            clearHost(hideItem)
             hideItem.button?.image = nil
             hideItem.button?.title = ""
         }
     }
 
     private func applyKeepAwakeChip() {
-        applyStubChip(keepAwakeItem, view: ChipArtwork.keepAwake(on: keepAwake.isEnabled))
+        installClickThrough(
+            keepAwakeItem,
+            view: ChipArtwork.keepAwake(on: keepAwake.isEnabled),
+            length: 54
+        )
     }
 
     private func applyCPUChip() {
         let label = cpu.percent.map { "\($0)%" } ?? "CPU"
-        applyStubChip(cpuItem, view: ChipArtwork.cpu(label: label))
+        applyHoverChip(cpuItem, kind: .cpu, view: ChipArtwork.cpu(label: label), length: 68)
     }
 
-    private func applyStubChip<V: View>(_ item: NSStatusItem, view: V) {
-        let image = ChipImage.nsImage(from: view)
-        item.button?.image = image
-        item.button?.image?.isTemplate = false
+    private func applyHoverChip<V: View>(_ item: NSStatusItem, kind: BarWidget, view: V, length: CGFloat) {
+        let wrapped = AnyView(
+            view.onHover { [weak self] inside in
+                guard let self else { return }
+                if inside {
+                    self.islands.show(kind: kind, from: item)
+                } else {
+                    self.islands.scheduleHide()
+                }
+            }
+        )
+        installHosting(item, view: wrapped, length: length, clickThrough: false)
+    }
+
+    private func installClickThrough<V: View>(_ item: NSStatusItem, view: V, length: CGFloat) {
+        installHosting(item, view: AnyView(view), length: length, clickThrough: true)
+    }
+
+    private func installHosting(_ item: NSStatusItem, view: AnyView, length: CGFloat, clickThrough: Bool) {
+        item.length = length
+        item.button?.image = nil
+        item.button?.title = ""
+        guard let button = item.button else { return }
+
+        if let existing = button.subviews.first(where: { $0 is NSHostingView<AnyView> }) as? NSHostingView<AnyView> {
+            existing.rootView = view
+            existing.frame = NSRect(x: 0, y: 0, width: length, height: 22)
+            return
+        }
+
+        clearHost(item)
+        let host: NSHostingView<AnyView> = clickThrough
+            ? ClickThroughHostingView(rootView: view)
+            : NSHostingView(rootView: view)
+        host.frame = NSRect(x: 0, y: 0, width: length, height: 22)
+        host.autoresizingMask = [.width, .height]
+        button.addSubview(host)
+    }
+
+    private func clearHost(_ item: NSStatusItem) {
+        item.button?.subviews.forEach { subview in
+            if subview is NSHostingView<AnyView> {
+                subview.removeFromSuperview()
+            }
+        }
     }
 
     private func scheduleInitialCollapseIfNeeded() {
         guard !didScheduleInitialCollapse else { return }
         didScheduleInitialCollapse = true
         guard !model.overflowExpanded else { return }
-        // Let extras settle before the first inflate — Hidden Bar lesson.
+        // Let extras settle before the first inflate — public spacer hide.
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.6) { [weak self] in
             guard let self, !self.model.overflowExpanded else { return }
             self.applyHideLength(expanded: false)
@@ -179,6 +237,7 @@ final class StatusBarController: NSObject {
     }
 
     @objc private func clickOverflow() {
+        islands.hide()
         model.toggleOverflowExpanded()
     }
 
@@ -187,22 +246,18 @@ final class StatusBarController: NSObject {
     }
 
     private func presentOverflow() {
-        let size = NSSize(width: Theme.overflowPanelWidth + Theme.printShadowOffset,
-                          height: 420)
         presenter.show(
             content: OverflowPanel(model: model),
             under: overflowItem.button,
-            size: size
+            size: NSSize(width: Theme.overflowPanelWidth, height: 430)
         )
     }
 
     private func presentSettings() {
-        let size = NSSize(width: Theme.settingsPanelWidth + Theme.printShadowOffset,
-                          height: 200)
         presenter.show(
             content: SettingsPanel(model: model),
             under: overflowItem.button,
-            size: size
+            size: NSSize(width: Theme.settingsPanelWidth, height: 236)
         )
     }
 }
