@@ -13,15 +13,24 @@ struct MenuBarApp: App {
     }
 }
 
+@MainActor
 final class AppDelegate: NSObject, NSApplicationDelegate {
-    private let statusBar = StatusBarController()
+    private var statusBar: StatusBarController?
 
-    func applicationDidFinishLaunching(_ notification: Notification) {
-        NSApp.setActivationPolicy(.accessory)
-        statusBar.install()
+    nonisolated func applicationDidFinishLaunching(_ notification: Notification) {
+        // Delegate callbacks are nonisolated; the run loop delivers them on the main thread.
+        MainActor.assumeIsolated {
+            NSApp.setActivationPolicy(.accessory)
+            let controller = StatusBarController()
+            controller.install()
+            self.statusBar = controller
+        }
     }
 
-    func applicationWillTerminate(_ notification: Notification) {
-        statusBar.teardown()
+    nonisolated func applicationWillTerminate(_ notification: Notification) {
+        MainActor.assumeIsolated {
+            self.statusBar?.teardown()
+            self.statusBar = nil
+        }
     }
 }
