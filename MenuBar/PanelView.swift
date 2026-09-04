@@ -42,7 +42,6 @@ struct PanelView: View {
         .padding(.trailing, Theme.printShadowOffset)
         .padding(.bottom, Theme.printShadowOffset)
         .background(PanelWindowConfigurator())
-        .containerBackground(.clear, for: .window)
         // Later rows (not in this slice): quota, weather, CPU, calendar — keep-awake stays last.
     }
 }

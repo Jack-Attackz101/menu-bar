@@ -32,5 +32,23 @@ private final class WindowHookView: NSView {
         if #available(macOS 11.0, *) {
             window.toolbar = nil
         }
+        // MenuBarExtra .window ships a material backdrop on 14; hide it so the
+        // SwiftUI ink shape is the only fill (no glass / cream card).
+        stripMaterial(from: window.contentView)
+        DispatchQueue.main.async { [weak self] in
+            guard let self, let window = self.window else { return }
+            self.stripMaterial(from: window.contentView)
+        }
+    }
+
+    private func stripMaterial(from view: NSView?) {
+        guard let view else { return }
+        if view is NSVisualEffectView {
+            view.isHidden = true
+            view.alphaValue = 0
+        }
+        for subview in view.subviews {
+            stripMaterial(from: subview)
+        }
     }
 }
