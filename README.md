@@ -6,7 +6,7 @@ Widgets on the menu bar as separate status items, plus overflow hide via a publi
 - Display name / About / keep-awake assertion: **Super Spade**
 - Settings header: **super spade**
 - Assertion in `pmset`: **`Super Spade keep-awake`**
-- Host mark: thin spade on aurora glass
+- Host mark: thin spade on compact glass
 
 Xcode target / scheme / folder `MenuBar` and bundle id `com.jack-attackz101.menu-bar` are internals, not the product name.
 
@@ -18,17 +18,17 @@ Separate `NSStatusItem` chips, left → right toward the clock:
 
 | Item | Chip | This slice |
 | --- | --- | --- |
-| Hide tick | Glass tick | Drop point for ⌘-drag overflow hide |
-| Weather | Aurora glass chip | Stub (`—`) + hover island (stub data) |
-| Quota | Aurora glass chip | Stub (`—`) + hover island scaffold |
-| CPU | Aurora glass chip | Live `%` via `host_statistics` + hover island |
-| Calendar | Aurora glass chip | Stub (`—`) + hover island scaffold |
-| Keep awake | Aurora glass **tap** chip | IOKit assertions, `caffeinate -dims` fallback |
+| Hide tick | Compact glass tick | Drop point for ⌘-drag overflow hide |
+| Weather | Compact glass + sky tint | Stub (`—`) + hover island (stub data) |
+| Quota | Compact glass | Stub (`—`) + hover island scaffold |
+| CPU | Compact glass | Live `%` via `host_statistics` + hover island |
+| Calendar | Compact glass | Stub (`—`) + hover island scaffold |
+| Keep awake | Warm glass **tap** chip + green live dot | IOKit assertions, `caffeinate -dims` fallback |
 | Overflow / host | Thin spade | Expand/collapse hide + frosted panel |
 
-Hover weather, quota, CPU, or calendar for a glass island under the chip (soft capsule join, no triangle pointer). Keep-awake is tap-only — no island. Click the spade to reveal/hide extras and open the frosted overflow panel. Settings / Quit live there.
+Hover weather, quota, CPU, or calendar for a dark frost island under the chip (soft-join shoulders, no triangle). Keep-awake is tap-only — no island. Hide other icons is a pill toggle in Settings. Click the spade to reveal/hide extras.
 
-Chrome: peach / pink / lavender / sky / teal mesh, frosted chips, big continuous corners, clean sans, thin icons.
+Chrome follows `docs/SUPER-SPADE-1.0-TOKENS.md`: compact white glass chips (weather sky tint, keep-awake warm glass + green live dot), dark frost hover islands with soft-join shoulders, settings radius 22 / header `super spade` / 34×18 pill toggles. No cream `#FFF9ED`, no ink stamps, no mango `#FFC928`.
 
 ## Overflow hide (honest)
 
@@ -72,7 +72,7 @@ Do these in order on a Mac. Product name must be Super Spade everywhere a person
 3. **Keep-awake** — click the chip (tap only, no hover island). `pmset -g assertions` shows **`Super Spade keep-awake`**. Click again to clear.
 4. **Overflow hide** — overflow expanded, tick visible → ⌘-drag another extra **left of the tick** → click the spade to collapse → extra gone → click again to restore.
 5. **No mango** — no cream `#FFF9ED`, no ink `#24211D`, no fruit / mango-stamp chrome. Finder / About says **Super Spade**. Settings header is lowercase **super spade**.
-6. **Aurora glass + hover islands** — chips are frosted peach / pink / lavender / sky / teal. Hover weather (same for quota / CPU / calendar): island sits under the chip with a **soft capsule join**, not a hard triangle pointer. Keep-awake stays tap-only.
+6. **Tokens + hover islands** — chips are white glass (`rgba(255,255,255,0.16)`), weather sky-tinted, keep-awake warm glass + green live dot. Hover weather (same for quota / CPU / calendar): dark frost island under the chip with **soft-join shoulders**, not a hard triangle. Keep-awake stays tap-only. Settings: `super spade` header, Hide other icons pill.
 
 Also: CPU chip should show a live `%` after a couple of seconds.
 

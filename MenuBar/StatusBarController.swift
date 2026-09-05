@@ -34,7 +34,7 @@ final class StatusBarController: NSObject {
         cpuItem = makeItem(autosave: "MenuBar.cpu", length: NSStatusItem.variableLength)
         quotaItem = makeItem(autosave: "MenuBar.quota", length: NSStatusItem.variableLength)
         weatherItem = makeItem(autosave: "MenuBar.weather", length: NSStatusItem.variableLength)
-        hideItem = makeItem(autosave: "MenuBar.hide", length: 16)
+        hideItem = makeItem(autosave: "MenuBar.hide", length: 18)
 
         overflowItem.button?.toolTip = "Show or hide extras"
         keepAwakeItem.button?.toolTip = "Keep awake"
@@ -86,8 +86,10 @@ final class StatusBarController: NSObject {
                 self?.applyHideLength(expanded: expanded)
                 self?.applyHideTick(expanded: expanded)
                 if !expanded {
-                    self?.presenter.dismiss()
                     self?.islands.hide()
+                    if self?.model.settingsPanelOpen != true {
+                        self?.presenter.dismiss()
+                    }
                 }
             }
             .store(in: &observers)
@@ -146,12 +148,12 @@ final class StatusBarController: NSObject {
     }
 
     private func applyHideLength(expanded: Bool) {
-        hideItem.length = expanded ? 16 : Self.collapseLength()
+        hideItem.length = expanded ? 18 : Self.collapseLength()
     }
 
     private func applyHideTick(expanded: Bool) {
         if expanded {
-            installClickThrough(hideItem, view: ChipArtwork.hideTick(), length: 16)
+            installClickThrough(hideItem, view: ChipArtwork.hideTick(), length: 18)
         } else {
             clearHost(hideItem)
             hideItem.button?.image = nil
@@ -163,7 +165,7 @@ final class StatusBarController: NSObject {
         installClickThrough(
             keepAwakeItem,
             view: ChipArtwork.keepAwake(on: keepAwake.isEnabled),
-            length: 54
+            length: 64
         )
     }
 
@@ -198,7 +200,7 @@ final class StatusBarController: NSObject {
 
         if let existing = button.subviews.first(where: { $0 is NSHostingView<AnyView> }) as? NSHostingView<AnyView> {
             existing.rootView = view
-            existing.frame = NSRect(x: 0, y: 0, width: length, height: 22)
+            existing.frame = NSRect(x: 0, y: 0, width: length, height: Theme.chipHeight)
             return
         }
 
@@ -206,7 +208,7 @@ final class StatusBarController: NSObject {
         let host: NSHostingView<AnyView> = clickThrough
             ? ClickThroughHostingView(rootView: view)
             : NSHostingView(rootView: view)
-        host.frame = NSRect(x: 0, y: 0, width: length, height: 22)
+        host.frame = NSRect(x: 0, y: 0, width: length, height: Theme.chipHeight)
         host.autoresizingMask = [.width, .height]
         button.addSubview(host)
     }
@@ -249,7 +251,7 @@ final class StatusBarController: NSObject {
         presenter.show(
             content: OverflowPanel(model: model),
             under: overflowItem.button,
-            size: NSSize(width: Theme.overflowPanelWidth, height: 430)
+            size: NSSize(width: Theme.overflowPanelWidth, height: 320)
         )
     }
 
@@ -257,7 +259,7 @@ final class StatusBarController: NSObject {
         presenter.show(
             content: SettingsPanel(model: model),
             under: overflowItem.button,
-            size: NSSize(width: Theme.settingsPanelWidth, height: 236)
+            size: NSSize(width: Theme.settingsPanelWidth, height: 420)
         )
     }
 }

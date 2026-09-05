@@ -1,8 +1,8 @@
 import AppKit
 import SwiftUI
 
-/// Shows a glass island under an on-bar chip. Hide is delayed so the pointer
-/// can move from the chip into the island without a hard dismiss.
+/// Shows a dark frost island under an on-bar chip. Hide is delayed so the
+/// cursor can move from the chip into the island. Soft-join, no triangle.
 @MainActor
 final class HoverIslandPresenter {
     private var panel: NSPanel?
@@ -67,7 +67,7 @@ final class HoverIslandPresenter {
             let buttonScreen = button.convert(button.bounds, to: nil)
             let screenRect = window.convertToScreen(buttonScreen)
             var x = screenRect.midX - fitted.width / 2
-            let y = screenRect.minY - fitted.height + 3
+            let y = screenRect.minY - fitted.height + 6
             if let visible = window.screen?.visibleFrame ?? NSScreen.main?.visibleFrame {
                 x = min(max(x, visible.minX + 8), visible.maxX - fitted.width - 8)
             }

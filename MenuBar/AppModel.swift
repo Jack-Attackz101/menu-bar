@@ -59,6 +59,16 @@ final class AppModel: ObservableObject {
         UserDefaults.standard.set(visibleWidgets.map(\.rawValue), forKey: visibleKey)
     }
 
+    var hideOtherIcons: Bool { !overflowExpanded }
+
+    func setHideOtherIcons(_ hide: Bool) {
+        overflowExpanded = !hide
+        UserDefaults.standard.set(overflowExpanded, forKey: expandedKey)
+        if hide {
+            overflowPanelOpen = false
+        }
+    }
+
     func toggleOverflowExpanded() {
         overflowExpanded.toggle()
         UserDefaults.standard.set(overflowExpanded, forKey: expandedKey)
