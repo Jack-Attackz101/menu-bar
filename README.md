@@ -1,8 +1,14 @@
 # Super Spade
 
-Widgets **on the menu bar** as separate status items, plus overflow hide via a public `NSStatusItem` spacer.
+Widgets on the menu bar as separate status items, plus overflow hide via a public `NSStatusItem` spacer.
 
-Display name: **Super Spade**. Settings header: **super spade**. Host mark: a thin spade on aurora glass.
+**Identity (locked)**
+- Display name / About / keep-awake assertion: **Super Spade**
+- Settings header: **super spade**
+- Assertion in `pmset`: **`Super Spade keep-awake`**
+- Host mark: thin spade on aurora glass
+
+Xcode target / scheme / folder `MenuBar` and bundle id `com.jack-attackz101.menu-bar` are internals, not the product name.
 
 Requires **macOS 14+** and **Xcode 15+**. No macOS 15-only APIs (`containerBackground` is not used).
 
@@ -17,10 +23,12 @@ Separate `NSStatusItem` chips, left → right toward the clock:
 | Quota | Aurora glass chip | Stub (`—`) + hover island scaffold |
 | CPU | Aurora glass chip | Live `%` via `host_statistics` + hover island |
 | Calendar | Aurora glass chip | Stub (`—`) + hover island scaffold |
-| Keep awake | Aurora glass tap chip | **Works** — IOKit assertions, `caffeinate -dims` fallback |
+| Keep awake | Aurora glass **tap** chip | IOKit assertions, `caffeinate -dims` fallback |
 | Overflow / host | Thin spade | Expand/collapse hide + frosted panel |
 
-Hover weather, quota, CPU, or calendar for a glass island under the chip (soft join, no pointer). Keep-awake stays a tap chip. Click the spade to reveal/hide extras and open the frosted overflow panel. Settings / Quit live there.
+Hover weather, quota, CPU, or calendar for a glass island under the chip (soft capsule join, no triangle pointer). Keep-awake is tap-only — no island. Click the spade to reveal/hide extras and open the frosted overflow panel. Settings / Quit live there.
+
+Chrome: peach / pink / lavender / sky / teal mesh, frosted chips, big continuous corners, clean sans, thin icons.
 
 ## Overflow hide (honest)
 
@@ -39,15 +47,15 @@ Hover weather, quota, CPU, or calendar for a glass island under the chip (soft j
 - On very new macOS, Apple has started ignoring giant status-item lengths in some builds. If collapse does nothing, that is an OS limit, not a missing private hook.
 
 **Permissions**
-- None required for our widgets, keep-awake, CPU, or the spacer hide.
+- None required for widgets, keep-awake, CPU, or the spacer hide.
 - **Accessibility** (optional): overflow panel can list other extras. System Settings → Privacy & Security → Accessibility. Sign with a **stable** team/certificate; ad-hoc signing drops the grant on every rebuild.
-- **Screen Recording** is not requested. A future “show hidden icons in a tray” would need it (and still would not hide extras by identity on the public API).
+- **Screen Recording** is not requested.
 
 ## Run
 
 1. Open `MenuBar.xcodeproj` on a Mac.
 2. Select the **MenuBar** scheme and a signing team (or Sign to Run Locally).
-3. Run (⌘R). No Dock icon (`LSUIElement`). Look at the menu bar chips.
+3. Run (⌘R). No Dock icon (`LSUIElement`). Look at the chips on the menu bar.
 
 ```bash
 xcodebuild -project MenuBar.xcodeproj -scheme MenuBar -configuration Debug -destination 'platform=macOS' build
@@ -55,15 +63,18 @@ xcodebuild -project MenuBar.xcodeproj -scheme MenuBar -configuration Debug -dest
 
 This tree was written on Linux and has not been compiled here.
 
-## QA
+## Finn — morning QA
 
-- Five widget chips plus the spade host mark are **on the bar**, not inside one list.
-- Keep awake: click the glass chip → `pmset -g assertions` shows `Super Spade keep-awake`. Click again to clear.
-- CPU chip updates after a couple of seconds (live).
-- Hover weather (and quota / CPU / calendar): glass island appears under the chip with a soft join, not a hard pointer.
-- Overflow: ⌘-drag another extra left of the tick, collapse, confirm it is gone; expand, confirm it returns.
-- Settings header is lowercase **super spade**. About line is **Super Spade 1.0**. Quit is secondary.
-- Chrome is aurora glass (peach / pink / lavender / sky / teal). No cream or ink product chrome.
+Do these in order on a Mac. Product name must be Super Spade everywhere a person can see it.
+
+1. **Compile** — `MenuBar` scheme, macOS 14+ destination. Build must succeed (no `highlightsBy`, no 15-only `containerBackground`, AppDelegate / AppModel init order intact).
+2. **Five chips on the bar** — weather, quota, CPU, calendar, keep-awake, plus the spade host and hide tick. Separate status items, not one panel list.
+3. **Keep-awake** — click the chip (tap only, no hover island). `pmset -g assertions` shows **`Super Spade keep-awake`**. Click again to clear.
+4. **Overflow hide** — overflow expanded, tick visible → ⌘-drag another extra **left of the tick** → click the spade to collapse → extra gone → click again to restore.
+5. **No mango** — no cream `#FFF9ED`, no ink `#24211D`, no fruit / mango-stamp chrome. Finder / About says **Super Spade**. Settings header is lowercase **super spade**.
+6. **Aurora glass + hover islands** — chips are frosted peach / pink / lavender / sky / teal. Hover weather (same for quota / CPU / calendar): island sits under the chip with a **soft capsule join**, not a hard triangle pointer. Keep-awake stays tap-only.
+
+Also: CPU chip should show a live `%` after a couple of seconds.
 
 ## Later
 
