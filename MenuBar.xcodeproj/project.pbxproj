@@ -1,0 +1,571 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B39B00000000000000003101 /* MenuBarApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B00000000000000002101 /* MenuBarApp.swift */; };
+		B39B00000000000000003102 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B00000000000000002102 /* Theme.swift */; };
+		B39B00000000000000003103 /* SpadeMark.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B00000000000000002103 /* SpadeMark.swift */; };
+		B39B00000000000000003104 /* GlassBubbleChrome.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B00000000000000002104 /* GlassBubbleChrome.swift */; };
+		B39B00000000000000003105 /* BubblePanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B00000000000000002105 /* BubblePanel.swift */; };
+		B39B00000000000000003106 /* KeepAwakeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B00000000000000002106 /* KeepAwakeController.swift */; };
+		B39B00000000000000003107 /* KeepAwakeWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B00000000000000002107 /* KeepAwakeWidget.swift */; };
+		B39B00000000000000003108 /* FlipClockLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B00000000000000002108 /* FlipClockLogic.swift */; };
+		B39B00000000000000003109 /* FlipClock.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B00000000000000002109 /* FlipClock.swift */; };
+		B39B0000000000000000310A /* UsageStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B0000000000000000210A /* UsageStore.swift */; };
+		B39B0000000000000000310B /* UsageMeter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B0000000000000000210B /* UsageMeter.swift */; };
+		B39B0000000000000000310C /* MenuBarEnumerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B0000000000000000210C /* MenuBarEnumerator.swift */; };
+		B39B0000000000000000310D /* ImportStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B0000000000000000210D /* ImportStore.swift */; };
+		B39B0000000000000000310E /* ImportStrip.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B0000000000000000210E /* ImportStrip.swift */; };
+		B39B0000000000000000310F /* SettingsSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B0000000000000000210F /* SettingsSheet.swift */; };
+		B39B00000000000000003110 /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B00000000000000002110 /* AppModel.swift */; };
+		B39B00000000000000003111 /* StatusBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B00000000000000002111 /* StatusBarController.swift */; };
+		B39B00000000000000003112 /* BubblePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B00000000000000002112 /* BubblePresenter.swift */; };
+		B39B00000000000000003201 /* FlipClockLogicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B00000000000000002201 /* FlipClockLogicTests.swift */; };
+		B39B00000000000000003202 /* ImportStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B00000000000000002202 /* ImportStoreTests.swift */; };
+		B39B00000000000000003203 /* UsageMeterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B00000000000000002203 /* UsageMeterTests.swift */; };
+		B39B00000000000000003204 /* KeepAwakeNameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B00000000000000002204 /* KeepAwakeNameTests.swift */; };
+		B39B00000000000000003009 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B39B00000000000000002009 /* Assets.xcassets */; };
+		B39B0000000000000000300A /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B39B0000000000000000200A /* IOKit.framework */; };
+		B39B0000000000000000300B /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B39B0000000000000000200D /* ApplicationServices.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B39B00000000000000004001 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B39B00000000000000001003 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B39B00000000000000001002;
+			remoteInfo = MenuBar;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		B39B00000000000000001001 /* MenuBar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MenuBar.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B39B00000000000000001021 /* MenuBarTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MenuBarTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B39B00000000000000002101 /* MenuBarApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarApp.swift; sourceTree = "<group>"; };
+		B39B00000000000000002102 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		B39B00000000000000002103 /* SpadeMark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpadeMark.swift; sourceTree = "<group>"; };
+		B39B00000000000000002104 /* GlassBubbleChrome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlassBubbleChrome.swift; sourceTree = "<group>"; };
+		B39B00000000000000002105 /* BubblePanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubblePanel.swift; sourceTree = "<group>"; };
+		B39B00000000000000002106 /* KeepAwakeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeepAwakeController.swift; sourceTree = "<group>"; };
+		B39B00000000000000002107 /* KeepAwakeWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeepAwakeWidget.swift; sourceTree = "<group>"; };
+		B39B00000000000000002108 /* FlipClockLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlipClockLogic.swift; sourceTree = "<group>"; };
+		B39B00000000000000002109 /* FlipClock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlipClock.swift; sourceTree = "<group>"; };
+		B39B0000000000000000210A /* UsageStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageStore.swift; sourceTree = "<group>"; };
+		B39B0000000000000000210B /* UsageMeter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageMeter.swift; sourceTree = "<group>"; };
+		B39B0000000000000000210C /* MenuBarEnumerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarEnumerator.swift; sourceTree = "<group>"; };
+		B39B0000000000000000210D /* ImportStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportStore.swift; sourceTree = "<group>"; };
+		B39B0000000000000000210E /* ImportStrip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportStrip.swift; sourceTree = "<group>"; };
+		B39B0000000000000000210F /* SettingsSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSheet.swift; sourceTree = "<group>"; };
+		B39B00000000000000002110 /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
+		B39B00000000000000002111 /* StatusBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarController.swift; sourceTree = "<group>"; };
+		B39B00000000000000002112 /* BubblePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubblePresenter.swift; sourceTree = "<group>"; };
+		B39B00000000000000002201 /* FlipClockLogicTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlipClockLogicTests.swift; sourceTree = "<group>"; };
+		B39B00000000000000002202 /* ImportStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportStoreTests.swift; sourceTree = "<group>"; };
+		B39B00000000000000002203 /* UsageMeterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageMeterTests.swift; sourceTree = "<group>"; };
+		B39B00000000000000002204 /* KeepAwakeNameTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeepAwakeNameTests.swift; sourceTree = "<group>"; };
+		B39B00000000000000002009 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B39B0000000000000000200A /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
+		B39B0000000000000000200D /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
+		B39B0000000000000000200B /* MenuBar.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MenuBar.entitlements; sourceTree = "<group>"; };
+		B39B0000000000000000200C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B39B0000000000000000100A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B39B0000000000000000300A /* IOKit.framework in Frameworks */,
+				B39B0000000000000000300B /* ApplicationServices.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B39B0000000000000000102A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B39B00000000000000001004 /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				B39B00000000000000001006 /* MenuBar */,
+				B39B00000000000000001008 /* MenuBarTests */,
+				B39B00000000000000001007 /* Frameworks */,
+				B39B00000000000000001005 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B39B00000000000000001005 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B39B00000000000000001001 /* MenuBar.app */,
+				B39B00000000000000001021 /* MenuBarTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B39B00000000000000001006 /* MenuBar */ = {
+			isa = PBXGroup;
+			children = (
+				B39B00000000000000002101 /* MenuBarApp.swift */,
+				B39B00000000000000002102 /* Theme.swift */,
+				B39B00000000000000002103 /* SpadeMark.swift */,
+				B39B00000000000000002104 /* GlassBubbleChrome.swift */,
+				B39B00000000000000002105 /* BubblePanel.swift */,
+				B39B00000000000000002106 /* KeepAwakeController.swift */,
+				B39B00000000000000002107 /* KeepAwakeWidget.swift */,
+				B39B00000000000000002108 /* FlipClockLogic.swift */,
+				B39B00000000000000002109 /* FlipClock.swift */,
+				B39B0000000000000000210A /* UsageStore.swift */,
+				B39B0000000000000000210B /* UsageMeter.swift */,
+				B39B0000000000000000210C /* MenuBarEnumerator.swift */,
+				B39B0000000000000000210D /* ImportStore.swift */,
+				B39B0000000000000000210E /* ImportStrip.swift */,
+				B39B0000000000000000210F /* SettingsSheet.swift */,
+				B39B00000000000000002110 /* AppModel.swift */,
+				B39B00000000000000002111 /* StatusBarController.swift */,
+				B39B00000000000000002112 /* BubblePresenter.swift */,
+				B39B00000000000000002009 /* Assets.xcassets */,
+				B39B0000000000000000200B /* MenuBar.entitlements */,
+				B39B0000000000000000200C /* Info.plist */,
+			);
+			path = MenuBar;
+			sourceTree = "<group>";
+		};
+		B39B00000000000000001008 /* MenuBarTests */ = {
+			isa = PBXGroup;
+			children = (
+				B39B00000000000000002201 /* FlipClockLogicTests.swift */,
+				B39B00000000000000002202 /* ImportStoreTests.swift */,
+				B39B00000000000000002203 /* UsageMeterTests.swift */,
+				B39B00000000000000002204 /* KeepAwakeNameTests.swift */,
+			);
+			path = MenuBarTests;
+			sourceTree = "<group>";
+		};
+		B39B00000000000000001007 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B39B0000000000000000200A /* IOKit.framework */,
+				B39B0000000000000000200D /* ApplicationServices.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B39B00000000000000001002 /* MenuBar */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B39B0000000000000000100C /* Build configuration list for PBXNativeTarget "MenuBar" */;
+			buildPhases = (
+				B39B00000000000000001018 /* Sources */,
+				B39B0000000000000000100A /* Frameworks */,
+				B39B00000000000000001009 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MenuBar;
+			productName = MenuBar;
+			productReference = B39B00000000000000001001 /* MenuBar.app */;
+			productType = "com.apple.product-type.application";
+		};
+		B39B00000000000000001022 /* MenuBarTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B39B0000000000000000102C /* Build configuration list for PBXNativeTarget "MenuBarTests" */;
+			buildPhases = (
+				B39B00000000000000001028 /* Sources */,
+				B39B0000000000000000102A /* Frameworks */,
+				B39B00000000000000001029 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B39B00000000000000004002 /* PBXTargetDependency */,
+			);
+			name = MenuBarTests;
+			productName = MenuBarTests;
+			productReference = B39B00000000000000001021 /* MenuBarTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B39B00000000000000001003 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					B39B00000000000000001002 = {
+						CreatedOnToolsVersion = 15.0;
+					};
+					B39B00000000000000001022 = {
+						CreatedOnToolsVersion = 15.0;
+						TestTargetID = B39B00000000000000001002;
+					};
+				};
+			};
+			buildConfigurationList = B39B0000000000000000100B /* Build configuration list for PBXProject "MenuBar" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = B39B00000000000000001004 /* Root */;
+			productRefGroup = B39B00000000000000001005 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B39B00000000000000001002 /* MenuBar */,
+				B39B00000000000000001022 /* MenuBarTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B39B00000000000000001009 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B39B00000000000000003009 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B39B00000000000000001029 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B39B00000000000000001018 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B39B00000000000000003101 /* MenuBarApp.swift in Sources */,
+				B39B00000000000000003102 /* Theme.swift in Sources */,
+				B39B00000000000000003103 /* SpadeMark.swift in Sources */,
+				B39B00000000000000003104 /* GlassBubbleChrome.swift in Sources */,
+				B39B00000000000000003105 /* BubblePanel.swift in Sources */,
+				B39B00000000000000003106 /* KeepAwakeController.swift in Sources */,
+				B39B00000000000000003107 /* KeepAwakeWidget.swift in Sources */,
+				B39B00000000000000003108 /* FlipClockLogic.swift in Sources */,
+				B39B00000000000000003109 /* FlipClock.swift in Sources */,
+				B39B0000000000000000310A /* UsageStore.swift in Sources */,
+				B39B0000000000000000310B /* UsageMeter.swift in Sources */,
+				B39B0000000000000000310C /* MenuBarEnumerator.swift in Sources */,
+				B39B0000000000000000310D /* ImportStore.swift in Sources */,
+				B39B0000000000000000310E /* ImportStrip.swift in Sources */,
+				B39B0000000000000000310F /* SettingsSheet.swift in Sources */,
+				B39B00000000000000003110 /* AppModel.swift in Sources */,
+				B39B00000000000000003111 /* StatusBarController.swift in Sources */,
+				B39B00000000000000003112 /* BubblePresenter.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B39B00000000000000001028 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B39B00000000000000003201 /* FlipClockLogicTests.swift in Sources */,
+				B39B00000000000000003202 /* ImportStoreTests.swift in Sources */,
+				B39B00000000000000003203 /* UsageMeterTests.swift in Sources */,
+				B39B00000000000000003204 /* KeepAwakeNameTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B39B00000000000000004002 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B39B00000000000000001002 /* MenuBar */;
+			targetProxy = B39B00000000000000004001 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		B39B0000000000000000100D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+		ALWAYS_SEARCH_USER_PATHS = NO;
+		ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+		CLANG_ANALYZER_NONNULL = YES;
+		CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+		CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+		CLANG_ENABLE_MODULES = YES;
+		CLANG_ENABLE_OBJC_ARC = YES;
+		CLANG_ENABLE_OBJC_WEAK = YES;
+		CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+		CLANG_WARN_BOOL_CONVERSION = YES;
+		CLANG_WARN_COMMA = YES;
+		CLANG_WARN_CONSTANT_CONVERSION = YES;
+		CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+		CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+		CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+		CLANG_WARN_EMPTY_BODY = YES;
+		CLANG_WARN_ENUM_CONVERSION = YES;
+		CLANG_WARN_INFINITE_RECURSION = YES;
+		CLANG_WARN_INT_CONVERSION = YES;
+		CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+		CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+		CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+		CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+		CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+		CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+		CLANG_WARN_STRICT_PROTOTYPES = YES;
+		CLANG_WARN_SUSPICIOUS_MOVE = YES;
+		CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+		CLANG_WARN_UNREACHABLE_CODE = YES;
+		CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+		COPY_PHASE_STRIP = NO;
+		DEAD_CODE_STRIPPING = YES;
+		DEBUG_INFORMATION_FORMAT = dwarf;
+		ENABLE_STRICT_OBJC_MSGSEND = YES;
+		ENABLE_TESTABILITY = YES;
+		ENABLE_USER_SCRIPT_SANDBOXING = YES;
+		GCC_C_LANGUAGE_STANDARD = gnu17;
+		GCC_DYNAMIC_NO_PIC = NO;
+		GCC_NO_COMMON_BLOCKS = YES;
+		GCC_OPTIMIZATION_LEVEL = 0;
+		GCC_PREPROCESSOR_DEFINITIONS = (
+			"DEBUG=1",
+			"$(inherited)",
+		);
+		GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+		GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+		GCC_WARN_UNDECLARED_SELECTOR = YES;
+		GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+		GCC_WARN_UNUSED_FUNCTION = YES;
+		GCC_WARN_UNUSED_VARIABLE = YES;
+		MACOSX_DEPLOYMENT_TARGET = 14.0;
+		MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+		MTL_FAST_MATH = YES;
+		ONLY_ACTIVE_ARCH = YES;
+		SDKROOT = macosx;
+		SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+		SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+		SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		B39B0000000000000000100E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+		ALWAYS_SEARCH_USER_PATHS = NO;
+		ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+		CLANG_ANALYZER_NONNULL = YES;
+		CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+		CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+		CLANG_ENABLE_MODULES = YES;
+		CLANG_ENABLE_OBJC_ARC = YES;
+		CLANG_ENABLE_OBJC_WEAK = YES;
+		CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+		CLANG_WARN_BOOL_CONVERSION = YES;
+		CLANG_WARN_COMMA = YES;
+		CLANG_WARN_CONSTANT_CONVERSION = YES;
+		CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+		CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+		CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+		CLANG_WARN_EMPTY_BODY = YES;
+		CLANG_WARN_ENUM_CONVERSION = YES;
+		CLANG_WARN_INFINITE_RECURSION = YES;
+		CLANG_WARN_INT_CONVERSION = YES;
+		CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+		CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+		CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+		CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+		CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+		CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+		CLANG_WARN_STRICT_PROTOTYPES = YES;
+		CLANG_WARN_SUSPICIOUS_MOVE = YES;
+		CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+		CLANG_WARN_UNREACHABLE_CODE = YES;
+		CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+		COPY_PHASE_STRIP = NO;
+		DEAD_CODE_STRIPPING = YES;
+		DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+		ENABLE_STRICT_OBJC_MSGSEND = YES;
+		ENABLE_NS_ASSERTIONS = NO;
+		ENABLE_USER_SCRIPT_SANDBOXING = YES;
+		GCC_C_LANGUAGE_STANDARD = gnu17;
+		GCC_DYNAMIC_NO_PIC = NO;
+		GCC_NO_COMMON_BLOCKS = YES;
+		GCC_OPTIMIZATION_LEVEL = 0;
+		GCC_PREPROCESSOR_DEFINITIONS = (
+			"DEBUG=1",
+			"$(inherited)",
+		);
+		GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+		GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+		GCC_WARN_UNDECLARED_SELECTOR = YES;
+		GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+		GCC_WARN_UNUSED_FUNCTION = YES;
+		GCC_WARN_UNUSED_VARIABLE = YES;
+		MACOSX_DEPLOYMENT_TARGET = 14.0;
+		MTL_ENABLE_DEBUG_INFO = NO;
+		MTL_FAST_MATH = YES;
+		ONLY_ACTIVE_ARCH = YES;
+		SDKROOT = macosx;
+		SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+		SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+		SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		B39B0000000000000000100F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MenuBar/MenuBar.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = MenuBar/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Super Spade";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_LSUIElement = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.jack-attackz101.menu-bar";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		B39B00000000000000001010 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MenuBar/MenuBar.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = MenuBar/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Super Spade";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_LSUIElement = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.jack-attackz101.menu-bar";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		B39B0000000000000000102F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.jack-attackz101.menu-bar.tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MenuBar.app/Contents/MacOS/MenuBar";
+			};
+			name = Debug;
+		};
+		B39B00000000000000001030 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.jack-attackz101.menu-bar.tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MenuBar.app/Contents/MacOS/MenuBar";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B39B0000000000000000100B /* Build configuration list for PBXProject "MenuBar" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B39B0000000000000000100D /* Debug */,
+				B39B0000000000000000100E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B39B0000000000000000100C /* Build configuration list for PBXNativeTarget "MenuBar" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B39B0000000000000000100F /* Debug */,
+				B39B00000000000000001010 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B39B0000000000000000102C /* Build configuration list for PBXNativeTarget "MenuBarTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B39B0000000000000000102F /* Debug */,
+				B39B00000000000000001030 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B39B00000000000000001003 /* Project object */;
+}

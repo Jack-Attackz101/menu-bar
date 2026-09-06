@@ -1,0 +1,77 @@
+import Foundation
+
+enum UsageSource: String, Equatable, Sendable {
+    case live
+    case stub
+    case missingKey
+}
+
+/// One row of the Claude / Codex dual meter. Not CPU.
+struct UsageReading: Equatable, Sendable {
+    var label: String
+    var fraction: Double
+    var source: UsageSource
+    var caption: String
+
+    static func clampFraction(_ value: Double) -> Double {
+        min(max(value, 0), 1)
+    }
+}
+
+enum UsageStore {
+    static let claudeDefaultsKey = "superSpade.anthropicKey"
+    static let codexDefaultsKey = "superSpade.openaiKey"
+
+    static func readings(
+        claudeKey: String? = nil,
+        codexKey: String? = nil
+    ) -> (claude: UsageReading, codex: UsageReading) {
+        (
+            meter(
+                label: "Claude",
+                key: claudeKey,
+                stubFraction: 0.42
+            ),
+            meter(
+                label: "Codex",
+                key: codexKey,
+                stubFraction: 0.28
+            )
+        )
+    }
+
+    static func readingsFromEnvironment(
+        environment: [String: String] = ProcessInfo.processInfo.environment,
+        defaults: UserDefaults = .standard
+    ) -> (claude: UsageReading, codex: UsageReading) {
+        readings(
+            claudeKey: firstKey(environment["ANTHROPIC_API_KEY"], defaults.string(forKey: claudeDefaultsKey)),
+            codexKey: firstKey(environment["OPENAI_API_KEY"], defaults.string(forKey: codexDefaultsKey))
+        )
+    }
+
+    private static func firstKey(_ values: String?...) -> String? {
+        values.first { key in
+            guard let key else { return false }
+            return !key.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+        }?.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+
+    private static func meter(label: String, key: String?, stubFraction: Double) -> UsageReading {
+        if let key, !key.isEmpty {
+            // Personal keys are not org-admin usage keys. Show a labeled stub, not a fake live %.
+            return UsageReading(
+                label: label,
+                fraction: UsageReading.clampFraction(stubFraction),
+                source: .stub,
+                caption: "key present · usage API not wired"
+            )
+        }
+        return UsageReading(
+            label: label,
+            fraction: 0,
+            source: .missingKey,
+            caption: "no API key · stub"
+        )
+    }
+}
