@@ -39,3 +39,9 @@ final class ImportStoreTests: XCTestCase {
         XCTAssertEqual(reloaded, [extra])
     }
 }
+
+final class MenuBarEnumeratorCastTests: XCTestCase {
+    func testCFStringIsNotTreatedAsAXElement() {
+        XCTAssertNil(MenuBarEnumerator.axUIElement(from: "nope" as CFString))
+    }
+}

@@ -1,5 +1,6 @@
 import ApplicationServices
 import AppKit
+import CoreFoundation
 
 /// Public Accessibility listing of other apps' menu extras (`AXExtrasMenuBar`).
 /// macOS has no public API to hide, steal, or embed those extras.
@@ -93,14 +94,18 @@ enum MenuBarEnumerator {
         var value: CFTypeRef?
         let error = AXUIElementCopyAttributeValue(element, name as CFString, &value)
         guard error == .success, let value else { return nil }
-        return (value as? AXUIElement)
+        return axUIElement(from: value)
     }
 
     private static func copyChildren(_ element: AXUIElement) -> [AXUIElement]? {
         var value: CFTypeRef?
         let error = AXUIElementCopyAttributeValue(element, kAXChildrenAttribute as CFString, &value)
-        guard error == .success else { return nil }
-        return value as? [AXUIElement]
+        guard error == .success, let value else { return nil }
+        guard CFGetTypeID(value) == CFArrayGetTypeID() else { return nil }
+        let array = value as NSArray
+        return array.compactMap { item in
+            axUIElement(from: item as AnyObject)
+        }
     }
 
     private static func copyString(_ element: AXUIElement, _ name: String) -> String? {
@@ -108,5 +113,11 @@ enum MenuBarEnumerator {
         let error = AXUIElementCopyAttributeValue(element, name as CFString, &value)
         guard error == .success else { return nil }
         return value as? String
+    }
+
+    /// `AXUIElement` is a CF type, so `as? AXUIElement` always succeeds. Check the type ID first.
+    static func axUIElement(from value: CFTypeRef) -> AXUIElement? {
+        guard CFGetTypeID(value) == AXUIElementGetTypeID() else { return nil }
+        return unsafeBitCast(value, to: AXUIElement.self)
     }
 }
