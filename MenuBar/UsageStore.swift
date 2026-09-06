@@ -19,9 +19,6 @@ struct UsageReading: Equatable, Sendable {
 }
 
 enum UsageStore {
-    static let claudeDefaultsKey = "superSpade.anthropicKey"
-    static let codexDefaultsKey = "superSpade.openaiKey"
-
     static func readings(
         claudeKey: String? = nil,
         codexKey: String? = nil
@@ -41,12 +38,11 @@ enum UsageStore {
     }
 
     static func readingsFromEnvironment(
-        environment: [String: String] = ProcessInfo.processInfo.environment,
-        defaults: UserDefaults = .standard
+        environment: [String: String] = ProcessInfo.processInfo.environment
     ) -> (claude: UsageReading, codex: UsageReading) {
         readings(
-            claudeKey: firstKey(environment["ANTHROPIC_API_KEY"], defaults.string(forKey: claudeDefaultsKey)),
-            codexKey: firstKey(environment["OPENAI_API_KEY"], defaults.string(forKey: codexDefaultsKey))
+            claudeKey: firstKey(environment["ANTHROPIC_API_KEY"]),
+            codexKey: firstKey(environment["OPENAI_API_KEY"])
         )
     }
 

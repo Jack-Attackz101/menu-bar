@@ -23,7 +23,7 @@ This PR is a **new slice**. It does not continue PR #2 (chips-on-bar / hover isl
 | Click | Borderless `NSPanel` glass bubble (not hover) |
 | Top strip | Bookmarks-style import of other extras (click to add) |
 | Flip clock | Split-flap digits, 12-hour + AM/PM — not a plain digital clock |
-| Usage | **Claude** + **Codex** dual meter (not CPU). Stub unless a key is present; still labeled stub because personal keys are not org usage APIs |
+| Usage | **Claude** + **Codex** dual meter (not CPU). Optional `ANTHROPIC_API_KEY` / `OPENAI_API_KEY` in the environment; still a labeled stub because personal keys are not org usage APIs. Secrets are not stored |
 | Keep awake | Real IOKit `PreventUserIdleSystemSleep` + `PreventUserIdleDisplaySleep`, process-owned. `/usr/bin/caffeinate -dims` if IOKit fails |
 | Weather | Optional stub (`72°` / Clear · stub) |
 | Settings | Gear in the corner. Header is lowercase **super spade** |
@@ -68,7 +68,7 @@ Do these on a Mac. Product name must be Super Spade everywhere a person can see 
 1. **Compile** — `MenuBar` scheme, macOS 14+ destination. Build must succeed (no `highlightsBy`, no 15-only `containerBackground`, `AppDelegate` uses `MainActor.assumeIsolated` in `applicationDidFinishLaunching`, `AppModel` init assigns from locals).
 2. **One spade** — a single status item. Not five chips. Not a hide tick. Not hover islands.
 3. **Click opens the bubble** — aurora / mesh glass, big rounded corners. Peach / pink / lavender / sky / teal. No cream, ink, or mango chrome.
-4. **Import strip** — if Accessibility is off: prompt + System Settings. Grant it, return to the app, strip flips to discovered extras. Click an extra to import it into Super Spade’s bar (the strip). Right-click to remove. Drag is optional and not required.
+4. **Import strip** — if Accessibility is off: prompt + System Settings (Privacy & Security → Accessibility). Grant it, return to the app, strip flips to discovered extras. If it does not, quit and reopen (TCC sometimes applies only on the next launch). Click an extra to import it into Super Spade’s bar (the strip). Right-click to remove. Drag is optional and not required.
 5. **Flip clock** — digits are split cards that flip, not a single digital label.
 6. **Claude + Codex** — dual meter, those two labels, not CPU. Without keys: “no API key · stub”.
 7. **Keep-awake** — click the control. `pmset -g assertions` shows **`Super Spade keep-awake`**. Close the bubble — assertion stays. Click again (or Quit) to clear.

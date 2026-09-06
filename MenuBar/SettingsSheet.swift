@@ -3,8 +3,6 @@ import SwiftUI
 
 struct SettingsSheet: View {
     @ObservedObject var model: AppModel
-    @State private var claudeKey = UserDefaults.standard.string(forKey: UsageStore.claudeDefaultsKey) ?? ""
-    @State private var codexKey = UserDefaults.standard.string(forKey: UsageStore.codexDefaultsKey) ?? ""
 
     var body: some View {
         VStack(alignment: .leading, spacing: 14) {
@@ -32,22 +30,22 @@ struct SettingsSheet: View {
                         Button("System Settings") { model.openSystemSettings() }
                             .buttonStyle(GlassPillButtonStyle())
                     }
+                    if model.permissionPrompted {
+                        Text("If the strip does not flip after grant, quit and reopen Super Spade. macOS sometimes applies Accessibility only on the next launch.")
+                            .font(.system(size: 10, weight: .regular, design: .default))
+                            .foregroundStyle(Theme.textMuted)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
                 }
             }
 
-            VStack(alignment: .leading, spacing: 8) {
-                Text("Usage keys (optional)")
+            VStack(alignment: .leading, spacing: 6) {
+                Text("Usage")
                     .font(.system(size: Theme.rowSize, weight: .medium, design: .default))
                     .foregroundStyle(Theme.textMuted)
-                keyField("Claude", text: $claudeKey) {
-                    model.setClaudeKey(claudeKey)
-                }
-                keyField("Codex", text: $codexKey) {
-                    model.setCodexKey(codexKey)
-                }
-                Text("Personal keys do not unlock org usage dashboards. The dual meter stays a labeled stub unless a live admin API is added later.")
-                    .font(.system(size: 10, weight: .regular, design: .default))
-                    .foregroundStyle(Theme.textMuted)
+                Text("Claude and Codex meters read optional `ANTHROPIC_API_KEY` / `OPENAI_API_KEY` from the process environment. Personal keys do not unlock org usage APIs, so the dual meter stays a labeled stub. Super Spade does not store secrets.")
+                    .font(.system(size: 11, weight: .regular, design: .default))
+                    .foregroundStyle(Theme.text)
                     .fixedSize(horizontal: false, vertical: true)
             }
 
@@ -60,26 +58,6 @@ struct SettingsSheet: View {
                     .font(.system(size: Theme.rowSize, weight: .regular, design: .default))
                     .foregroundStyle(Theme.textMuted)
             }
-        }
-    }
-
-    private func keyField(_ label: String, text: Binding<String>, save: @escaping () -> Void) -> some View {
-        HStack {
-            Text(label)
-                .font(.system(size: 11, weight: .medium, design: .default))
-                .foregroundStyle(Theme.text)
-                .frame(width: 52, alignment: .leading)
-            SecureField("optional", text: text)
-                .textFieldStyle(.plain)
-                .font(.system(size: 11, weight: .regular, design: .monospaced))
-                .foregroundStyle(Theme.text)
-                .padding(.horizontal, 8)
-                .padding(.vertical, 5)
-                .background {
-                    RoundedRectangle(cornerRadius: 8, style: .continuous)
-                        .fill(Color.white.opacity(0.10))
-                }
-                .onSubmit(save)
         }
     }
 }

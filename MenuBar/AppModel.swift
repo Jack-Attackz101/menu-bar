@@ -76,14 +76,4 @@ final class AppModel: ObservableObject {
         claude = usage.claude
         codex = usage.codex
     }
-
-    func setClaudeKey(_ key: String) {
-        UserDefaults.standard.set(key, forKey: UsageStore.claudeDefaultsKey)
-        refreshUsage()
-    }
-
-    func setCodexKey(_ key: String) {
-        UserDefaults.standard.set(key, forKey: UsageStore.codexDefaultsKey)
-        refreshUsage()
-    }
 }

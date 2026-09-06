@@ -16,12 +16,12 @@ enum MenuBarEnumerator {
 
     static func openAccessibilitySettings() {
         let urls = [
-            "x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility",
-            "x-apple.systempreferences:com.apple.settings.PrivacySecurity.extension?Privacy_Accessibility"
+            "x-apple.systempreferences:com.apple.settings.PrivacySecurity.extension?Privacy_Accessibility",
+            "x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility"
         ]
         for string in urls {
-            if let url = URL(string: string) {
-                NSWorkspace.shared.open(url)
+            guard let url = URL(string: string) else { continue }
+            if NSWorkspace.shared.open(url) {
                 return
             }
         }
@@ -93,7 +93,7 @@ enum MenuBarEnumerator {
         var value: CFTypeRef?
         let error = AXUIElementCopyAttributeValue(element, name as CFString, &value)
         guard error == .success, let value else { return nil }
-        return (value as! AXUIElement)
+        return (value as? AXUIElement)
     }
 
     private static func copyChildren(_ element: AXUIElement) -> [AXUIElement]? {

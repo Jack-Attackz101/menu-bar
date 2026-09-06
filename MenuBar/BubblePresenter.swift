@@ -21,11 +21,12 @@ final class BubblePresenter {
         dismiss()
 
         let root = BubblePanel(model: AppModel.shared, keepAwake: KeepAwakeController.shared)
+            .padding(14)
         let hosting = NSHostingView(rootView: root)
-        let size = NSSize(width: Theme.bubbleWidth, height: Theme.bubbleHeight)
+        let size = NSSize(width: Theme.bubbleWidth + 28, height: Theme.bubbleHeight + 28)
         hosting.frame = NSRect(origin: .zero, size: size)
 
-        let panel = NSPanel(
+        let panel = KeyableBubblePanel(
             contentRect: hosting.frame,
             styleMask: [.borderless, .nonactivatingPanel],
             backing: .buffered,
@@ -58,7 +59,7 @@ final class BubblePresenter {
             panel.setFrameOrigin(origin)
         }
 
-        panel.orderFrontRegardless()
+        panel.makeKeyAndOrderFront(nil)
         self.panel = panel
 
         monitor = NSEvent.addGlobalMonitorForEvents(matching: [.leftMouseDown, .rightMouseDown]) { [weak self] event in
@@ -85,4 +86,10 @@ final class BubblePresenter {
             dismiss()
         }
     }
+}
+
+/// Nonactivating so the menu bar stays put, but key so controls inside the bubble can focus.
+private final class KeyableBubblePanel: NSPanel {
+    override var canBecomeKey: Bool { true }
+    override var canBecomeMain: Bool { false }
 }

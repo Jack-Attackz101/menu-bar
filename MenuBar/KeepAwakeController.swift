@@ -4,6 +4,7 @@ import IOKit.pwr_mgt
 import os
 
 /// Process-owned idle-sleep assertion. Closing the bubble must not drop it.
+@MainActor
 final class KeepAwakeController: ObservableObject {
     static let shared = KeepAwakeController()
 
@@ -95,7 +96,7 @@ final class KeepAwakeController: ObservableObject {
         process.standardError = FileHandle.nullDevice
         do {
             process.terminationHandler = { [weak self] _ in
-                DispatchQueue.main.async {
+                Task { @MainActor in
                     guard let self, self.caffeinateProcess != nil else { return }
                     self.caffeinateProcess = nil
                     if self.displayAssertion == 0, self.idleAssertion == 0 {

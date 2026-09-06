@@ -31,18 +31,21 @@ struct ImportStrip: View {
             if !model.imported.isEmpty {
                 scrollRow(items: model.imported, imported: true)
             }
+            let available = model.discovered.filter { extra in
+                !model.imported.contains(where: { $0.id == extra.id })
+            }
             if model.discovered.isEmpty {
                 Text("No other extras found. Some apps do not expose AXExtrasMenuBar.")
                     .font(.system(size: 10, weight: .regular, design: .default))
                     .foregroundStyle(Theme.textMuted)
                     .fixedSize(horizontal: false, vertical: true)
+            } else if available.isEmpty {
+                Text("Every discovered extra is already in the bar. Right-click a chip to remove it.")
+                    .font(.system(size: 10, weight: .regular, design: .default))
+                    .foregroundStyle(Theme.textMuted)
+                    .fixedSize(horizontal: false, vertical: true)
             } else {
-                scrollRow(
-                    items: model.discovered.filter { extra in
-                        !model.imported.contains(where: { $0.id == extra.id })
-                    },
-                    imported: false
-                )
+                scrollRow(items: available, imported: false)
             }
         }
     }
@@ -115,6 +118,12 @@ struct PermissionGate: View {
                     model.openSystemSettings()
                 }
                 .buttonStyle(GlassPillButtonStyle())
+            }
+
+            if model.permissionPrompted {
+                Text("If listing does not appear after grant, quit and reopen Super Spade.")
+                    .font(.system(size: 10, weight: .regular, design: .default))
+                    .foregroundStyle(Theme.textMuted)
             }
         }
         .padding(10)

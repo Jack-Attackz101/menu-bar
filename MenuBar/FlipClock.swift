@@ -31,9 +31,15 @@ struct FlipClockView: View {
 
 struct FlipDigit: View {
     var digit: Int
-    @State private var displayed = 0
-    @State private var previous = 0
+    @State private var displayed: Int
+    @State private var previous: Int
     @State private var flip = false
+
+    init(digit: Int) {
+        self.digit = digit
+        _displayed = State(initialValue: digit)
+        _previous = State(initialValue: digit)
+    }
 
     var body: some View {
         ZStack {

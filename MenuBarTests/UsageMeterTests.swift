@@ -26,10 +26,8 @@ final class UsageMeterTests: XCTestCase {
     }
 
     func testEnvironmentPrefersNonEmptyKeys() {
-        let defaults = UserDefaults(suiteName: "superSpade.tests.usage.\(UUID().uuidString)")!
         let pair = UsageStore.readingsFromEnvironment(
-            environment: ["ANTHROPIC_API_KEY": "  ", "OPENAI_API_KEY": "ok"],
-            defaults: defaults
+            environment: ["ANTHROPIC_API_KEY": "  ", "OPENAI_API_KEY": "ok"]
         )
         XCTAssertEqual(pair.claude.source, .missingKey)
         XCTAssertEqual(pair.codex.source, .stub)
