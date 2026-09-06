@@ -102,10 +102,20 @@ enum MenuBarEnumerator {
         let error = AXUIElementCopyAttributeValue(element, kAXChildrenAttribute as CFString, &value)
         guard error == .success, let value else { return nil }
         guard CFGetTypeID(value) == CFArrayGetTypeID() else { return nil }
-        let array = value as NSArray
-        return array.compactMap { item in
-            axUIElement(from: item as AnyObject)
+        let cfArray = unsafeBitCast(value, to: CFArray.self)
+        let count = CFArrayGetCount(cfArray)
+        var children: [AXUIElement] = []
+        children.reserveCapacity(count)
+        for index in 0..<count {
+            guard let raw = CFArrayGetValueAtIndex(cfArray, index) as UnsafeRawPointer? else {
+                continue
+            }
+            let item = Unmanaged<AnyObject>.fromOpaque(raw).takeUnretainedValue()
+            if let child = axUIElement(from: item) {
+                children.append(child)
+            }
         }
+        return children
     }
 
     private static func copyString(_ element: AXUIElement, _ name: String) -> String? {

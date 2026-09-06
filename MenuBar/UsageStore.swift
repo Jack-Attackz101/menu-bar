@@ -47,10 +47,13 @@ enum UsageStore {
     }
 
     private static func firstKey(_ values: String?...) -> String? {
-        values.first { key in
-            guard let key else { return false }
-            return !key.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
-        }?.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard let matched = values.first(where: { candidate in
+            guard let candidate else { return false }
+            return !candidate.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+        }), let key = matched else {
+            return nil
+        }
+        return key.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 
     private static func meter(label: String, key: String?, stubFraction: Double) -> UsageReading {
