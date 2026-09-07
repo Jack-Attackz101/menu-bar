@@ -12,6 +12,9 @@ DerivedData/
 # Swift / SPM
 .build/
 .swiftpm/
+scripts/__pycache__/
+__pycache__/
+*.pyc
 
 # OS
 .DS_Store
