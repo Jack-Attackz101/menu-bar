@@ -54,15 +54,15 @@ enum ImportStripLogic {
     static func body(_ state: ImportStripState) -> String {
         switch state {
         case .denied:
-            return "Grant Accessibility to list other menu extras. Super Spade still cannot hide or steal them."
+            return "Grant Accessibility to list real menu extras. Super Spade can bookmark their icons. Per-item hide is attempted with AXHidden; otherwise a public spacer collapses extras left of Super Spade. It cannot steal or embed another app’s extra."
         case .deniedWaiting:
             return "Return here after you grant access. If the list does not appear, quit Super Spade and reopen — macOS sometimes applies Accessibility only on the next launch."
         case .grantedEmpty:
-            return "Some apps never expose AXExtrasMenuBar. When one appears, click it to bookmark it in Super Spade."
+            return "No AX extras listed. Super Spade does not invent placeholders. Some apps never expose AXExtrasMenuBar."
         case .grantedAvailable:
-            return "Click a chip to bookmark it in Super Spade. The other icon stays on the system bar."
+            return "Click a real extra to capture its icon and bookmark it. Hide is AXHidden when it works, otherwise extras left of Super Spade collapse via a public spacer."
         case .grantedAllBookmarked:
-            return "All listed extras are bookmarked. Click to open · right-click to remove."
+            return "All listed extras are bookmarked. Click to open · right-click to restore."
         }
     }
 }

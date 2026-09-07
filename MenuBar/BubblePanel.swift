@@ -45,25 +45,43 @@ struct BubblePanel: View {
     }
 
     private var mainStack: some View {
-        VStack(alignment: .leading, spacing: 12) {
+        VStack(alignment: .leading, spacing: 10) {
             ImportStrip(model: model)
 
             GlassCard {
-                FlipClockView()
+                VStack(alignment: .leading, spacing: 8) {
+                    HStack {
+                        Spacer(minLength: 0)
+                        PinAffordance(widget: .flipClock, model: model)
+                    }
+                    FlipClockView()
+                }
             }
 
             GlassCard {
-                DualUsageMeter(
-                    claude: model.claude,
-                    codex: model.codex,
-                    onRetry: { model.refreshUsage() }
-                )
+                VStack(alignment: .leading, spacing: 8) {
+                    HStack {
+                        Spacer(minLength: 0)
+                        PinAffordance(widget: .usage, model: model)
+                    }
+                    DualUsageMeter(
+                        claude: model.claude,
+                        codex: model.codex,
+                        onRetry: { model.refreshUsage() }
+                    )
+                }
             }
 
-            HStack(spacing: 8) {
-                KeepAwakeWidget(keepAwake: keepAwake)
-                WeatherStub()
-                    .frame(width: 118)
+            HStack(alignment: .top, spacing: 8) {
+                VStack(alignment: .leading, spacing: 6) {
+                    PinAffordance(widget: .keepAwake, model: model)
+                    KeepAwakeWidget(keepAwake: keepAwake)
+                }
+                VStack(alignment: .leading, spacing: 6) {
+                    PinAffordance(widget: .weather, model: model)
+                    WeatherStub()
+                        .frame(width: 118)
+                }
             }
 
             Spacer(minLength: 0)

@@ -11,6 +11,10 @@ struct FlipClockSnapshot: Equatable, Sendable {
     var hourDigits: [Int] { [hourTens, hourOnes] }
     var minuteDigits: [Int] { [minuteTens, minuteOnes] }
     var meridiem: String { isAfternoon ? "PM" : "AM" }
+    var compactLabel: String {
+        let hour = hourTens == 0 ? "\(hourOnes)" : "\(hourTens)\(hourOnes)"
+        return "\(hour):\(minuteTens)\(minuteOnes)"
+    }
 
     static func from(date: Date, calendar: Calendar = .current) -> FlipClockSnapshot {
         let hour24 = calendar.component(.hour, from: date)

@@ -13,7 +13,7 @@ final class ImportStripLogicTests: XCTestCase {
             imported: []
         )
         XCTAssertEqual(state, .denied)
-        XCTAssertTrue(ImportStripLogic.body(state).contains("cannot hide"))
+        XCTAssertTrue(ImportStripLogic.body(state).contains("cannot steal"))
         XCTAssertEqual(ImportStripLogic.headline(state), "Accessibility needed")
     }
 
@@ -37,7 +37,7 @@ final class ImportStripLogicTests: XCTestCase {
             imported: []
         )
         XCTAssertEqual(state, .grantedEmpty)
-        XCTAssertTrue(ImportStripLogic.body(state).contains("bookmark"))
+        XCTAssertTrue(ImportStripLogic.body(state).contains("placeholders"))
         XCTAssertTrue(ImportStripLogic.body(state).contains("AXExtrasMenuBar"))
     }
 
@@ -50,7 +50,7 @@ final class ImportStripLogicTests: XCTestCase {
         )
         XCTAssertEqual(state, .grantedAvailable)
         XCTAssertTrue(ImportStripLogic.headline(state).lowercased().contains("bookmark"))
-        XCTAssertTrue(ImportStripLogic.body(state).contains("Click a chip"))
+        XCTAssertTrue(ImportStripLogic.body(state).contains("Click a real extra"))
     }
 
     func testGrantedAllBookmarked() {

@@ -50,6 +50,11 @@ def parse_env_file(text: str) -> dict[str, str]:
     return out
 
 
+def extra_identity_placeholder(title: str) -> bool:
+    parts = title.strip().split()
+    return title.strip().startswith("Item ") and bool(parts) and parts[-1].isdigit()
+
+
 def import_state(trusted: bool, prompted: bool, discovered: list[str], imported: list[str]) -> str:
     if not trusted:
         return "deniedWaiting" if prompted else "denied"
@@ -106,6 +111,8 @@ def main() -> int:
     check("env_quote", env.get("OPENAI_API_KEY"), "quoted")
     check("denied", import_state(False, False, [], []), "denied")
     check("waiting", import_state(False, True, [], []), "deniedWaiting")
+    check("placeholder", extra_identity_placeholder("Item 1"), True)
+    check("not_placeholder", extra_identity_placeholder("Wi-Fi"), False)
     check("empty", import_state(True, True, [], []), "grantedEmpty")
     check("available", import_state(True, False, ["a", "b"], ["a"]), "grantedAvailable")
     check("bookmarked", import_state(True, False, ["a"], ["a"]), "grantedAllBookmarked")

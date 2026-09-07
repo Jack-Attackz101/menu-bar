@@ -5,7 +5,8 @@ struct SettingsSheet: View {
     @ObservedObject var model: AppModel
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 14) {
+        ScrollView {
+        VStack(alignment: .leading, spacing: 12) {
             VStack(alignment: .leading, spacing: 2) {
                 Text(Theme.settingsHeader)
                     .font(.system(size: Theme.headerSize, weight: .semibold, design: .default))
@@ -48,16 +49,47 @@ struct SettingsSheet: View {
             }
 
             VStack(alignment: .leading, spacing: 6) {
-                Text("Usage")
+                Text("Menu bar chips")
                     .font(.system(size: Theme.rowSize, weight: .medium, design: .default))
                     .foregroundStyle(Theme.textMuted)
-                Text("Claude and Codex meters read optional keys from the process environment or ~/.config/super-spade/usage.env. Super Spade does not store secrets in the repo or UserDefaults. Personal keys usually cannot read org usage APIs — then the meter stays demo or shows an error you can retry. A local usage.json snapshot is treated as live.")
+                Text("Pin widgets as Apple-thin chips. The ♠ still opens the bubble.")
                     .font(.system(size: 11, weight: .regular, design: .default))
                     .foregroundStyle(Theme.text)
                     .fixedSize(horizontal: false, vertical: true)
-                Text("Finn/Jack: see docs/USAGE-METER.md. SUPER_SPADE_USAGE_EMPTY=1 forces the empty state. SUPER_SPADE_USAGE_DEMO=1 forces demo.")
-                    .font(.system(size: 10, weight: .regular, design: .default))
+                ForEach(PinnableWidget.allCases) { widget in
+                    HStack {
+                        Text(widget.title)
+                            .font(.system(size: 11, weight: .medium, design: .default))
+                            .foregroundStyle(Theme.text)
+                        Spacer()
+                        PinAffordance(widget: widget, model: model)
+                    }
+                }
+            }
+
+            VStack(alignment: .leading, spacing: 6) {
+                Text("Hide extras")
+                    .font(.system(size: Theme.rowSize, weight: .medium, design: .default))
                     .foregroundStyle(Theme.textMuted)
+                Text(model.collapseExtras
+                     ? "Public spacer is collapsing extras left of Super Spade. That is not a per-icon steal."
+                     : "Off. Import tries AXHidden first; if that fails, this spacer turns on.")
+                    .font(.system(size: 11, weight: .regular, design: .default))
+                    .foregroundStyle(Theme.text)
+                    .fixedSize(horizontal: false, vertical: true)
+                Button(model.collapseExtras ? "Restore extras" : "Collapse extras left of Super Spade") {
+                    model.setCollapseExtras(!model.collapseExtras)
+                }
+                .buttonStyle(GlassPillButtonStyle())
+            }
+
+            VStack(alignment: .leading, spacing: 6) {
+                Text("Usage")
+                    .font(.system(size: Theme.rowSize, weight: .medium, design: .default))
+                    .foregroundStyle(Theme.textMuted)
+                Text("Keys stay in the process environment or ~/.config/super-spade/usage.env. Super Spade does not store secrets. See docs/USAGE-METER.md.")
+                    .font(.system(size: 11, weight: .regular, design: .default))
+                    .foregroundStyle(Theme.text)
                     .fixedSize(horizontal: false, vertical: true)
             }
 
@@ -70,6 +102,7 @@ struct SettingsSheet: View {
                     .font(.system(size: Theme.rowSize, weight: .regular, design: .default))
                     .foregroundStyle(Theme.textMuted)
             }
+        }
         }
     }
 }

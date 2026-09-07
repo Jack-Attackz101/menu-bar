@@ -68,6 +68,12 @@ struct ImportStrip: View {
                 .font(.system(size: 10, weight: .regular, design: .default))
                 .foregroundStyle(Theme.textMuted)
                 .fixedSize(horizontal: false, vertical: true)
+            if model.collapseExtras {
+                Text("Extras left of Super Spade are collapsed with a public spacer — not a per-icon steal. Click the empty bar zone or Settings to restore.")
+                    .font(.system(size: 10, weight: .regular, design: .default))
+                    .foregroundStyle(Theme.textMuted)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
             if showAvailable {
                 let extras = ImportStripLogic.available(
                     discovered: model.discovered,
@@ -90,9 +96,7 @@ struct ImportStrip: View {
                         }
                     } label: {
                         HStack(spacing: 5) {
-                            ThinSpade()
-                                .fill(Theme.text.opacity(0.86))
-                                .frame(width: 8, height: 8)
+                            ExtraGlyph(extra: extra, size: 12)
                             Text(extra.title)
                                 .font(.system(size: 11, weight: .medium, design: .default))
                                 .lineLimit(1)
@@ -119,7 +123,8 @@ struct ImportStrip: View {
                             }
                         }
                     }
-                    .accessibilityLabel(imported ? "Imported \(extra.appName) \(extra.title)" : "Import \(extra.appName) \(extra.title)")
+                    .help(imported ? ExtraHideCopy.caption(extra.hideOutcome) : extra.iconSource.label)
+                    .accessibilityLabel(imported ? "Imported \(extra.appName) \(extra.title). \(ExtraHideCopy.caption(extra.hideOutcome))" : "Import \(extra.appName) \(extra.title)")
                 }
             }
         }

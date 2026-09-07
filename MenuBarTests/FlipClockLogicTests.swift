@@ -17,6 +17,7 @@ final class FlipClockLogicTests: XCTestCase {
         XCTAssertEqual(snap.minuteOnes, 5)
         XCTAssertFalse(snap.isAfternoon)
         XCTAssertEqual(snap.meridiem, "AM")
+        XCTAssertEqual(snap.compactLabel, "12:05")
     }
 
     func testThirteenFortySevenIsOneFortySevenPM() {
@@ -26,6 +27,7 @@ final class FlipClockLogicTests: XCTestCase {
         XCTAssertEqual(snap.minuteDigits, [4, 7])
         XCTAssertTrue(snap.isAfternoon)
         XCTAssertEqual(snap.meridiem, "PM")
+        XCTAssertEqual(snap.compactLabel, "1:47")
     }
 
     func testNoonIsTwelvePM() {

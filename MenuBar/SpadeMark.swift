@@ -77,9 +77,9 @@ struct MenuBarSpadeView: View {
                 ThinSpade()
                     .stroke(Color.white.opacity(0.55), lineWidth: 0.4)
             }
-            .frame(width: 12, height: 13)
-            .padding(.horizontal, 8)
-            .frame(width: 28, height: 22)
+            .frame(width: 11, height: 12)
+            .padding(.horizontal, 6)
+            .frame(width: 26, height: ThinChipTokens.height)
             .background {
                 Capsule()
                     .fill(.ultraThinMaterial)
