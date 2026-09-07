@@ -64,6 +64,14 @@ final class ImportStripLogicTests: XCTestCase {
         XCTAssertTrue(ImportStripLogic.body(state).contains("right-click"))
     }
 
+    func testCompactDeniedPromptDoesNotReplaceSemantics() {
+        let denied = ImportStripLogic.compactPrompt(.denied)
+        XCTAssertTrue(denied.contains("cannot steal"))
+        XCTAssertLessThan(denied.count, ImportStripLogic.body(.denied).count)
+        let waiting = ImportStripLogic.compactPrompt(.deniedWaiting)
+        XCTAssertTrue(waiting.contains("reopen"))
+    }
+
     func testAvailableExtrasOmitsImported() {
         let extras = ImportStripLogic.available(discovered: [wifi, sound], imported: [wifi])
         XCTAssertEqual(extras.map(\.id), [sound.id])

@@ -15,7 +15,7 @@ struct ImportStrip: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: 6) {
             HStack {
                 Text("Import")
                     .font(.system(size: Theme.rowSize, weight: .semibold, design: .default))
@@ -42,36 +42,35 @@ struct ImportStrip: View {
     }
 
     private var emptyState: some View {
-        VStack(spacing: 8) {
-            ThinSpade()
-                .fill(Theme.text.opacity(0.28))
-                .frame(width: 16, height: 16)
+        VStack(spacing: 4) {
             Text(ImportStripLogic.headline(.grantedEmpty))
-                .font(.system(size: 12, weight: .semibold, design: .default))
+                .font(.system(size: 11, weight: .semibold, design: .default))
                 .foregroundStyle(Theme.text)
             Text(ImportStripLogic.body(.grantedEmpty))
                 .font(.system(size: 10, weight: .regular, design: .default))
                 .foregroundStyle(Theme.textMuted)
                 .multilineTextAlignment(.center)
+                .lineLimit(3)
                 .fixedSize(horizontal: false, vertical: true)
         }
         .frame(maxWidth: .infinity)
-        .padding(.vertical, 6)
     }
 
     private func workingStrip(showAvailable: Bool) -> some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: 6) {
             if !model.imported.isEmpty {
                 scrollRow(items: model.imported, imported: true)
             }
             Text(ImportStripLogic.body(stripState))
                 .font(.system(size: 10, weight: .regular, design: .default))
                 .foregroundStyle(Theme.textMuted)
+                .lineLimit(3)
                 .fixedSize(horizontal: false, vertical: true)
             if model.collapseExtras {
-                Text("Extras left of Super Spade are collapsed with a public spacer — not a per-icon steal. Click the empty bar zone or Settings to restore.")
+                Text("Extras left of Super Spade are collapsed with a public spacer — not a per-icon steal.")
                     .font(.system(size: 10, weight: .regular, design: .default))
                     .foregroundStyle(Theme.textMuted)
+                    .lineLimit(2)
                     .fixedSize(horizontal: false, vertical: true)
             }
             if showAvailable {
@@ -136,76 +135,55 @@ struct ImportWell<Content: View>: View {
 
     var body: some View {
         content()
-            .padding(12)
+            .padding(8)
             .frame(maxWidth: .infinity)
             .background {
-                RoundedRectangle(cornerRadius: 16, style: .continuous)
+                RoundedRectangle(cornerRadius: 12, style: .continuous)
                     .fill(.ultraThinMaterial)
                     .overlay {
-                        RoundedRectangle(cornerRadius: 16, style: .continuous)
+                        RoundedRectangle(cornerRadius: 12, style: .continuous)
                             .fill(Theme.glassDeep.opacity(0.35))
                     }
                     .overlay {
-                        RoundedRectangle(cornerRadius: 16, style: .continuous)
-                            .strokeBorder(Theme.glassBorder.opacity(0.9), style: StrokeStyle(lineWidth: 0.8, dash: [4, 3]))
+                        RoundedRectangle(cornerRadius: 12, style: .continuous)
+                            .strokeBorder(Theme.glassBorder.opacity(0.9), style: StrokeStyle(lineWidth: 0.7, dash: [4, 3]))
                     }
             }
     }
 }
 
+/// Compact denied card — must not consume the fixed bubble height.
 struct PermissionGate: View {
     @ObservedObject var model: AppModel
     var state: ImportStripState
 
     var body: some View {
         ImportWell {
-            VStack(alignment: .leading, spacing: 10) {
-                HStack(spacing: 8) {
-                    ThinSpade()
-                        .fill(Theme.text.opacity(0.34))
-                        .frame(width: 14, height: 14)
-                    Text(ImportStripLogic.headline(state))
-                        .font(.system(size: 12, weight: .semibold, design: .default))
-                        .foregroundStyle(Theme.text)
-                }
-
-                Text(ImportStripLogic.body(state))
-                    .font(.system(size: 11, weight: .regular, design: .default))
+            VStack(alignment: .leading, spacing: 6) {
+                Text(ImportStripLogic.compactPrompt(state))
+                    .font(.system(size: 10, weight: .regular, design: .default))
                     .foregroundStyle(Theme.textMuted)
+                    .lineLimit(2)
                     .fixedSize(horizontal: false, vertical: true)
 
-                VStack(alignment: .leading, spacing: 6) {
-                    Text("1. Allow the system prompt")
-                        .font(.system(size: 10, weight: .medium, design: .default))
-                        .foregroundStyle(Theme.text)
-                    Text("2. Confirm Super Spade in System Settings → Privacy & Security → Accessibility")
-                        .font(.system(size: 10, weight: .medium, design: .default))
-                        .foregroundStyle(Theme.text)
-                    Text("3. Return here. If TCC lags, quit and reopen.")
-                        .font(.system(size: 10, weight: .medium, design: .default))
-                        .foregroundStyle(Theme.text)
-                }
-
-                HStack(spacing: 8) {
-                    Button("Allow Accessibility") {
+                HStack(spacing: 6) {
+                    Button("Allow") {
                         model.requestAccessibility()
                     }
                     .buttonStyle(GlassPillButtonStyle())
 
-                    Button("Open System Settings") {
+                    Button("Settings") {
                         model.openSystemSettings()
                     }
                     .buttonStyle(GlassPillButtonStyle())
-                }
 
-                HStack(spacing: 8) {
                     Button("Recheck") {
                         model.refreshPermissionsAndExtras()
                     }
                     .buttonStyle(GlassPillButtonStyle())
 
                     if state == .deniedWaiting {
-                        Button("Quit Super Spade") {
+                        Button("Quit") {
                             NSApplication.shared.terminate(nil)
                         }
                         .buttonStyle(GlassPillButtonStyle())
@@ -213,16 +191,19 @@ struct PermissionGate: View {
                 }
             }
         }
+        .accessibilityElement(children: .contain)
+        .accessibilityLabel(ImportStripLogic.headline(state))
+        .accessibilityHint(ImportStripLogic.body(state))
     }
 }
 
 struct GlassPillButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .font(.system(size: 11, weight: .semibold, design: .default))
+            .font(.system(size: 10, weight: .semibold, design: .default))
             .foregroundStyle(Theme.text)
-            .padding(.horizontal, 10)
-            .padding(.vertical, 6)
+            .padding(.horizontal, 8)
+            .padding(.vertical, 4)
             .background {
                 Capsule()
                     .fill(.ultraThinMaterial)

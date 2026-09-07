@@ -85,7 +85,7 @@ Do these on a Mac without waiting on any later visual PR. Product name must be S
    - Keys set, then revoke network / use a junk key: **loading** then **error** with Retry.
    - `~/.config/super-spade/usage.json` with `used` fractions: **live**.
 5. **Import permission flow**
-   - Accessibility off: designed denied well (not a blank hole). Allow → System Settings deep link → Recheck.
+   - Accessibility off: **compact** denied card (Allow / Settings / Recheck). Flip clock, usage, keep-awake, weather, and Settings stay visible — the prompt must not fill the bubble.
    - After grant: strip flips to extras (or designed empty: “No extras listed” + click-to-bookmark copy).
    - If TCC lags: quit/reopen guidance + **Quit Super Spade**. Then the granted strip appears.
    - **No placeholders.** Only AX extras. Click one: exact icon in the strip (or labeled app icon) **and** hide attempt. If the extra is still on the system bar, the bookmark says so — no fake hide. Spacer collapse = extras *left of Super Spade*. Right-click restores.

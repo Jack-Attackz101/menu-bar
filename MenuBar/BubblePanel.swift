@@ -12,7 +12,10 @@ struct BubblePanel: View {
                 if model.showingSettings {
                     SettingsSheet(model: model)
                 } else {
-                    mainStack
+                    ScrollView {
+                        mainStack
+                    }
+                    .scrollIndicators(.hidden)
                 }
 
                 Button {
@@ -84,8 +87,8 @@ struct BubblePanel: View {
                 }
             }
 
-            Spacer(minLength: 0)
         }
         .padding(.trailing, 28)
+        .padding(.bottom, 4)
     }
 }

@@ -65,4 +65,16 @@ enum ImportStripLogic {
             return "All listed extras are bookmarked. Click to open · right-click to restore."
         }
     }
+
+    /// Short line for the compact denied card so the prompt cannot eat the bubble.
+    static func compactPrompt(_ state: ImportStripState) -> String {
+        switch state {
+        case .denied:
+            return "Needed to list extras. Super Spade cannot steal them."
+        case .deniedWaiting:
+            return "If the list does not appear, quit and reopen Super Spade."
+        case .grantedEmpty, .grantedAvailable, .grantedAllBookmarked:
+            return body(state)
+        }
+    }
 }
