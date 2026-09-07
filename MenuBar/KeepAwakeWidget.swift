@@ -23,11 +23,15 @@ struct KeepAwakeWidget: View {
                     .fill(.ultraThinMaterial)
                     .overlay {
                         RoundedRectangle(cornerRadius: 14, style: .continuous)
+                            .fill(Theme.glassDeep.opacity(0.18))
+                    }
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 14, style: .continuous)
                             .fill(Theme.keepAwakeTint)
                     }
                     .overlay {
                         RoundedRectangle(cornerRadius: 14, style: .continuous)
-                            .strokeBorder(Theme.glassBorder, lineWidth: 0.8)
+                            .strokeBorder(Theme.glassBorder, lineWidth: 0.85)
                     }
             }
         }
@@ -60,11 +64,15 @@ struct WeatherStub: View {
                 .fill(.ultraThinMaterial)
                 .overlay {
                     RoundedRectangle(cornerRadius: 14, style: .continuous)
+                        .fill(Theme.glassDeep.opacity(0.16))
+                }
+                .overlay {
+                    RoundedRectangle(cornerRadius: 14, style: .continuous)
                         .fill(Theme.weatherTint)
                 }
                 .overlay {
                     RoundedRectangle(cornerRadius: 14, style: .continuous)
-                        .strokeBorder(Theme.glassBorder, lineWidth: 0.8)
+                        .strokeBorder(Theme.glassBorder, lineWidth: 0.85)
                 }
         }
         .accessibilityLabel("Weather stub, 72 degrees, clear")

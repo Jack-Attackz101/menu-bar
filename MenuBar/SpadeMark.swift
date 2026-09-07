@@ -1,43 +1,63 @@
 import AppKit
 import SwiftUI
 
-/// Thin spade used on the menu bar and in the bubble. Not a mango / fruit mark.
+/// Thin filled spade used on the menu bar and in the bubble. Not a mango / fruit mark.
 struct ThinSpade: Shape {
     func path(in rect: CGRect) -> Path {
-        var path = Path()
+        let w = rect.width
+        let h = rect.height
         let cx = rect.midX
-        let top = rect.minY + rect.height * 0.10
-        path.move(to: CGPoint(x: cx, y: top))
+        var path = Path()
+
+        path.move(to: CGPoint(x: cx, y: rect.minY + h * 0.05))
         path.addCurve(
-            to: CGPoint(x: rect.minX + rect.width * 0.14, y: rect.midY + rect.height * 0.08),
-            control1: CGPoint(x: cx - rect.width * 0.02, y: rect.minY + rect.height * 0.34),
-            control2: CGPoint(x: rect.minX + rect.width * 0.06, y: rect.midY - rect.height * 0.04)
+            to: CGPoint(x: rect.minX + w * 0.07, y: rect.minY + h * 0.46),
+            control1: CGPoint(x: cx - w * 0.03, y: rect.minY + h * 0.20),
+            control2: CGPoint(x: rect.minX + w * 0.01, y: rect.minY + h * 0.32)
         )
         path.addCurve(
-            to: CGPoint(x: cx, y: rect.midY + rect.height * 0.16),
-            control1: CGPoint(x: rect.minX + rect.width * 0.26, y: rect.midY + rect.height * 0.26),
-            control2: CGPoint(x: cx - rect.width * 0.12, y: rect.midY + rect.height * 0.20)
+            to: CGPoint(x: cx, y: rect.minY + h * 0.58),
+            control1: CGPoint(x: rect.minX + w * 0.12, y: rect.minY + h * 0.64),
+            control2: CGPoint(x: cx - w * 0.15, y: rect.minY + h * 0.60)
         )
         path.addCurve(
-            to: CGPoint(x: rect.maxX - rect.width * 0.14, y: rect.midY + rect.height * 0.08),
-            control1: CGPoint(x: cx + rect.width * 0.12, y: rect.midY + rect.height * 0.20),
-            control2: CGPoint(x: rect.maxX - rect.width * 0.26, y: rect.midY + rect.height * 0.26)
+            to: CGPoint(x: rect.maxX - w * 0.07, y: rect.minY + h * 0.46),
+            control1: CGPoint(x: cx + w * 0.15, y: rect.minY + h * 0.60),
+            control2: CGPoint(x: rect.maxX - w * 0.12, y: rect.minY + h * 0.64)
         )
         path.addCurve(
-            to: CGPoint(x: cx, y: top),
-            control1: CGPoint(x: rect.maxX - rect.width * 0.06, y: rect.midY - rect.height * 0.04),
-            control2: CGPoint(x: cx + rect.width * 0.02, y: rect.minY + rect.height * 0.34)
+            to: CGPoint(x: cx, y: rect.minY + h * 0.05),
+            control1: CGPoint(x: rect.maxX - w * 0.01, y: rect.minY + h * 0.32),
+            control2: CGPoint(x: cx + w * 0.03, y: rect.minY + h * 0.20)
         )
-        path.move(to: CGPoint(x: cx, y: rect.midY + rect.height * 0.14))
-        path.addLine(to: CGPoint(x: cx, y: rect.maxY - rect.height * 0.08))
-        path.move(to: CGPoint(x: cx - rect.width * 0.16, y: rect.maxY - rect.height * 0.14))
-        path.addLine(to: CGPoint(x: cx + rect.width * 0.16, y: rect.maxY - rect.height * 0.14))
+        path.closeSubpath()
+
+        let stemWidth = w * 0.11
+        path.addRoundedRect(
+            in: CGRect(
+                x: cx - stemWidth / 2,
+                y: rect.minY + h * 0.52,
+                width: stemWidth,
+                height: h * 0.36
+            ),
+            cornerSize: CGSize(width: stemWidth / 2, height: stemWidth / 2)
+        )
+
+        var base = Path()
+        base.move(to: CGPoint(x: cx, y: rect.maxY - h * 0.18))
+        base.addLine(to: CGPoint(x: cx - w * 0.20, y: rect.maxY - h * 0.03))
+        base.addQuadCurve(
+            to: CGPoint(x: cx + w * 0.20, y: rect.maxY - h * 0.03),
+            control: CGPoint(x: cx, y: rect.maxY - h * 0.08)
+        )
+        base.closeSubpath()
+        path.addPath(base)
         return path
     }
 }
 
 enum MenuBarSpade {
-    /// Compact aurora-glass pill with a thin spade. Single status item — not a chip row.
+    /// Compact aurora-glass pill with a thin filled spade. Single status item — not a chip row.
     @MainActor
     static func image(scale: CGFloat = 2) -> NSImage {
         let view = MenuBarSpadeView()
@@ -52,8 +72,12 @@ enum MenuBarSpade {
 struct MenuBarSpadeView: View {
     var body: some View {
         ThinSpade()
-            .stroke(Color.white.opacity(0.94), lineWidth: 1.35)
-            .frame(width: 13, height: 13)
+            .fill(Color.white.opacity(0.96))
+            .overlay {
+                ThinSpade()
+                    .stroke(Color.white.opacity(0.55), lineWidth: 0.4)
+            }
+            .frame(width: 12, height: 13)
             .padding(.horizontal, 8)
             .frame(width: 28, height: 22)
             .background {
@@ -61,12 +85,16 @@ struct MenuBarSpadeView: View {
                     .fill(.ultraThinMaterial)
                     .overlay {
                         Capsule()
+                            .fill(Theme.glassDeep.opacity(0.22))
+                    }
+                    .overlay {
+                        Capsule()
                             .fill(
                                 LinearGradient(
                                     colors: [
-                                        Theme.lavender.opacity(0.45),
-                                        Theme.sky.opacity(0.35),
-                                        Theme.teal.opacity(0.30)
+                                        Theme.lavender.opacity(0.50),
+                                        Theme.sky.opacity(0.34),
+                                        Theme.teal.opacity(0.28)
                                     ],
                                     startPoint: .topLeading,
                                     endPoint: .bottomTrailing
@@ -74,7 +102,7 @@ struct MenuBarSpadeView: View {
                             )
                     }
                     .overlay {
-                        Capsule().strokeBorder(Theme.glassBorder, lineWidth: 0.8)
+                        Capsule().strokeBorder(Theme.glassBorder, lineWidth: 0.85)
                     }
             }
             .accessibilityLabel(Theme.productName)

@@ -30,6 +30,14 @@ struct SettingsSheet: View {
                         Button("System Settings") { model.openSystemSettings() }
                             .buttonStyle(GlassPillButtonStyle())
                     }
+                    HStack(spacing: 8) {
+                        Button("Recheck") { model.refreshPermissionsAndExtras() }
+                            .buttonStyle(GlassPillButtonStyle())
+                        if model.permissionPrompted {
+                            Button("Quit Super Spade") { NSApplication.shared.terminate(nil) }
+                                .buttonStyle(GlassPillButtonStyle())
+                        }
+                    }
                     if model.permissionPrompted {
                         Text("If the strip does not flip after grant, quit and reopen Super Spade. macOS sometimes applies Accessibility only on the next launch.")
                             .font(.system(size: 10, weight: .regular, design: .default))
@@ -43,9 +51,13 @@ struct SettingsSheet: View {
                 Text("Usage")
                     .font(.system(size: Theme.rowSize, weight: .medium, design: .default))
                     .foregroundStyle(Theme.textMuted)
-                Text("Claude and Codex meters read optional `ANTHROPIC_API_KEY` / `OPENAI_API_KEY` from the process environment. Personal keys do not unlock org usage APIs, so the dual meter stays a labeled stub. Super Spade does not store secrets.")
+                Text("Claude and Codex meters read optional keys from the process environment or ~/.config/super-spade/usage.env. Super Spade does not store secrets in the repo or UserDefaults. Personal keys usually cannot read org usage APIs — then the meter stays demo or shows an error you can retry. A local usage.json snapshot is treated as live.")
                     .font(.system(size: 11, weight: .regular, design: .default))
                     .foregroundStyle(Theme.text)
+                    .fixedSize(horizontal: false, vertical: true)
+                Text("Finn/Jack: see docs/USAGE-METER.md. SUPER_SPADE_USAGE_EMPTY=1 forces the empty state. SUPER_SPADE_USAGE_DEMO=1 forces demo.")
+                    .font(.system(size: 10, weight: .regular, design: .default))
+                    .foregroundStyle(Theme.textMuted)
                     .fixedSize(horizontal: false, vertical: true)
             }
 

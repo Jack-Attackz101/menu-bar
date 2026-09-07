@@ -16,3 +16,7 @@ DerivedData/
 # OS
 .DS_Store
 **/.DS_Store
+
+# Local usage secrets / snapshots (never commit)
+usage.env
+**/.config/super-spade/

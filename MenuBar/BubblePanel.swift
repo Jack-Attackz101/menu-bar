@@ -53,7 +53,11 @@ struct BubblePanel: View {
             }
 
             GlassCard {
-                DualUsageMeter(claude: model.claude, codex: model.codex)
+                DualUsageMeter(
+                    claude: model.claude,
+                    codex: model.codex,
+                    onRetry: { model.refreshUsage() }
+                )
             }
 
             HStack(spacing: 8) {

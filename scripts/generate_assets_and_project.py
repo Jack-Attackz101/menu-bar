@@ -162,9 +162,11 @@ SOURCES = [
     "FlipClockLogic.swift",
     "FlipClock.swift",
     "UsageStore.swift",
+    "UsageService.swift",
     "UsageMeter.swift",
     "MenuBarEnumerator.swift",
     "ImportStore.swift",
+    "ImportStripLogic.swift",
     "ImportStrip.swift",
     "SettingsSheet.swift",
     "AppModel.swift",
@@ -175,6 +177,7 @@ SOURCES = [
 TESTS = [
     "FlipClockLogicTests.swift",
     "ImportStoreTests.swift",
+    "ImportStripLogicTests.swift",
     "UsageMeterTests.swift",
     "KeepAwakeNameTests.swift",
 ]

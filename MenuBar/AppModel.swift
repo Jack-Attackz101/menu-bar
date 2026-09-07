@@ -15,12 +15,13 @@ final class AppModel: ObservableObject {
     @Published var permissionPrompted: Bool
 
     private let store: ImportStore
+    private var usageTask: Task<Void, Never>?
 
     private init() {
         let store = ImportStore()
         let imported = store.load()
         let trusted = MenuBarEnumerator.isTrusted()
-        let usage = UsageStore.readingsFromEnvironment()
+        let usage = UsageStore.placeholderReadings()
 
         self.store = store
         self.imported = imported
@@ -72,8 +73,15 @@ final class AppModel: ObservableObject {
     }
 
     func refreshUsage() {
-        let usage = UsageStore.readingsFromEnvironment()
-        claude = usage.claude
-        codex = usage.codex
+        claude = UsageStore.loading(from: claude)
+        codex = UsageStore.loading(from: codex)
+        usageTask?.cancel()
+        usageTask = Task.detached { [weak self] in
+            let pair = await UsageService.refresh()
+            await MainActor.run {
+                self?.claude = pair.claude
+                self?.codex = pair.codex
+            }
+        }
     }
 }

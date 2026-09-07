@@ -23,9 +23,21 @@ Hosts that do those things use Window Server / SkyLight / Screen Recording hooks
 ## Permissions
 
 - **None** for the spade, bubble, flip clock, keep-awake, weather stub, or usage meter.
-- **Accessibility** for discovery + AXPress. Prompt → System Settings → Privacy & Security → Accessibility. After grant, Super Spade flips the strip to the working state (it polls while the bubble is installed).
+- **Accessibility** for discovery + AXPress.
+  1. **Allow Accessibility** (system prompt).
+  2. **Open System Settings** → Privacy & Security → Accessibility (deep link).
+  3. Return to Super Spade. The strip flips to the working / empty-granted state (it polls while the status item is installed, and again on `applicationDidBecomeActive`).
+  4. If TCC lags and listing still does not appear, **quit and reopen Super Spade**. macOS sometimes applies Accessibility only on the next launch. Recheck is also on the denied well.
 - Sign with a **stable** team. Ad-hoc / Sign to Run Locally drops the Accessibility grant on every rebuild.
 - **Screen Recording is not requested.**
+
+## Import strip states (designed, not broken)
+
+- **Denied** — frosted well + steps. Not a blank hole.
+- **Denied, waiting** — same well plus quit/reopen recovery.
+- **Granted, empty** — intentional “No extras listed” well. Click-to-bookmark copy stays visible so the next extra is obvious.
+- **Granted, available** — “Click to bookmark”.
+- **Granted, all bookmarked** — click to open, right-click to remove.
 
 ## What “import” means here
 
