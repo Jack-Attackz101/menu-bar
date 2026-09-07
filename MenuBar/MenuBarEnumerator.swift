@@ -107,7 +107,7 @@ enum MenuBarEnumerator {
     }
 
     static func cgImage(from value: CFTypeRef) -> CGImage? {
-        guard CFGetTypeID(value) == CGImageGetTypeID() else { return nil }
+        guard CFGetTypeID(value) == CGImage.typeID else { return nil }
         return unsafeBitCast(value, to: CGImage.self)
     }
 
