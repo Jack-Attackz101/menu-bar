@@ -44,4 +44,8 @@ final class MenuBarEnumeratorCastTests: XCTestCase {
     func testCFStringIsNotTreatedAsAXElement() {
         XCTAssertNil(MenuBarEnumerator.axUIElement(from: "nope" as CFString))
     }
+
+    func testCFStringIsNotTreatedAsCGImage() {
+        XCTAssertNil(MenuBarEnumerator.cgImage(from: "nope" as CFString))
+    }
 }

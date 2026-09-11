@@ -17,18 +17,27 @@
 		B39B00000000000000003108 /* FlipClockLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B00000000000000002108 /* FlipClockLogic.swift */; };
 		B39B00000000000000003109 /* FlipClock.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B00000000000000002109 /* FlipClock.swift */; };
 		B39B0000000000000000310A /* UsageStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B0000000000000000210A /* UsageStore.swift */; };
-		B39B0000000000000000310B /* UsageMeter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B0000000000000000210B /* UsageMeter.swift */; };
-		B39B0000000000000000310C /* MenuBarEnumerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B0000000000000000210C /* MenuBarEnumerator.swift */; };
-		B39B0000000000000000310D /* ImportStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B0000000000000000210D /* ImportStore.swift */; };
-		B39B0000000000000000310E /* ImportStrip.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B0000000000000000210E /* ImportStrip.swift */; };
-		B39B0000000000000000310F /* SettingsSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B0000000000000000210F /* SettingsSheet.swift */; };
-		B39B00000000000000003110 /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B00000000000000002110 /* AppModel.swift */; };
-		B39B00000000000000003111 /* StatusBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B00000000000000002111 /* StatusBarController.swift */; };
-		B39B00000000000000003112 /* BubblePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B00000000000000002112 /* BubblePresenter.swift */; };
+		B39B0000000000000000310B /* UsageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B0000000000000000210B /* UsageService.swift */; };
+		B39B0000000000000000310C /* UsageMeter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B0000000000000000210C /* UsageMeter.swift */; };
+		B39B0000000000000000310D /* MenuBarEnumerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B0000000000000000210D /* MenuBarEnumerator.swift */; };
+		B39B0000000000000000310E /* ExtraIdentity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B0000000000000000210E /* ExtraIdentity.swift */; };
+		B39B0000000000000000310F /* ImportStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B0000000000000000210F /* ImportStore.swift */; };
+		B39B00000000000000003110 /* ImportStripLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B00000000000000002110 /* ImportStripLogic.swift */; };
+		B39B00000000000000003111 /* ImportStrip.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B00000000000000002111 /* ImportStrip.swift */; };
+		B39B00000000000000003112 /* BarChip.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B00000000000000002112 /* BarChip.swift */; };
+		B39B00000000000000003113 /* PinControlLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B00000000000000002113 /* PinControlLogic.swift */; };
+		B39B00000000000000003114 /* PinStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B00000000000000002114 /* PinStore.swift */; };
+		B39B00000000000000003115 /* SettingsSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B00000000000000002115 /* SettingsSheet.swift */; };
+		B39B00000000000000003116 /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B00000000000000002116 /* AppModel.swift */; };
+		B39B00000000000000003117 /* StatusBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B00000000000000002117 /* StatusBarController.swift */; };
+		B39B00000000000000003118 /* BubblePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B00000000000000002118 /* BubblePresenter.swift */; };
 		B39B00000000000000003201 /* FlipClockLogicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B00000000000000002201 /* FlipClockLogicTests.swift */; };
 		B39B00000000000000003202 /* ImportStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B00000000000000002202 /* ImportStoreTests.swift */; };
-		B39B00000000000000003203 /* UsageMeterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B00000000000000002203 /* UsageMeterTests.swift */; };
-		B39B00000000000000003204 /* KeepAwakeNameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B00000000000000002204 /* KeepAwakeNameTests.swift */; };
+		B39B00000000000000003203 /* ImportStripLogicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B00000000000000002203 /* ImportStripLogicTests.swift */; };
+		B39B00000000000000003204 /* ExtraIdentityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B00000000000000002204 /* ExtraIdentityTests.swift */; };
+		B39B00000000000000003205 /* UsageMeterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B00000000000000002205 /* UsageMeterTests.swift */; };
+		B39B00000000000000003206 /* KeepAwakeNameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B00000000000000002206 /* KeepAwakeNameTests.swift */; };
+		B39B00000000000000003207 /* PinControlLogicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B00000000000000002207 /* PinControlLogicTests.swift */; };
 		B39B00000000000000003009 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B39B00000000000000002009 /* Assets.xcassets */; };
 		B39B0000000000000000300A /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B39B0000000000000000200A /* IOKit.framework */; };
 		B39B0000000000000000300B /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B39B0000000000000000200D /* ApplicationServices.framework */; };
@@ -57,18 +66,27 @@
 		B39B00000000000000002108 /* FlipClockLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlipClockLogic.swift; sourceTree = "<group>"; };
 		B39B00000000000000002109 /* FlipClock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlipClock.swift; sourceTree = "<group>"; };
 		B39B0000000000000000210A /* UsageStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageStore.swift; sourceTree = "<group>"; };
-		B39B0000000000000000210B /* UsageMeter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageMeter.swift; sourceTree = "<group>"; };
-		B39B0000000000000000210C /* MenuBarEnumerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarEnumerator.swift; sourceTree = "<group>"; };
-		B39B0000000000000000210D /* ImportStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportStore.swift; sourceTree = "<group>"; };
-		B39B0000000000000000210E /* ImportStrip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportStrip.swift; sourceTree = "<group>"; };
-		B39B0000000000000000210F /* SettingsSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSheet.swift; sourceTree = "<group>"; };
-		B39B00000000000000002110 /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
-		B39B00000000000000002111 /* StatusBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarController.swift; sourceTree = "<group>"; };
-		B39B00000000000000002112 /* BubblePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubblePresenter.swift; sourceTree = "<group>"; };
+		B39B0000000000000000210B /* UsageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageService.swift; sourceTree = "<group>"; };
+		B39B0000000000000000210C /* UsageMeter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageMeter.swift; sourceTree = "<group>"; };
+		B39B0000000000000000210D /* MenuBarEnumerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarEnumerator.swift; sourceTree = "<group>"; };
+		B39B0000000000000000210E /* ExtraIdentity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtraIdentity.swift; sourceTree = "<group>"; };
+		B39B0000000000000000210F /* ImportStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportStore.swift; sourceTree = "<group>"; };
+		B39B00000000000000002110 /* ImportStripLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportStripLogic.swift; sourceTree = "<group>"; };
+		B39B00000000000000002111 /* ImportStrip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportStrip.swift; sourceTree = "<group>"; };
+		B39B00000000000000002112 /* BarChip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChip.swift; sourceTree = "<group>"; };
+		B39B00000000000000002113 /* PinControlLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinControlLogic.swift; sourceTree = "<group>"; };
+		B39B00000000000000002114 /* PinStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinStore.swift; sourceTree = "<group>"; };
+		B39B00000000000000002115 /* SettingsSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSheet.swift; sourceTree = "<group>"; };
+		B39B00000000000000002116 /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
+		B39B00000000000000002117 /* StatusBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarController.swift; sourceTree = "<group>"; };
+		B39B00000000000000002118 /* BubblePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubblePresenter.swift; sourceTree = "<group>"; };
 		B39B00000000000000002201 /* FlipClockLogicTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlipClockLogicTests.swift; sourceTree = "<group>"; };
 		B39B00000000000000002202 /* ImportStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportStoreTests.swift; sourceTree = "<group>"; };
-		B39B00000000000000002203 /* UsageMeterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageMeterTests.swift; sourceTree = "<group>"; };
-		B39B00000000000000002204 /* KeepAwakeNameTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeepAwakeNameTests.swift; sourceTree = "<group>"; };
+		B39B00000000000000002203 /* ImportStripLogicTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportStripLogicTests.swift; sourceTree = "<group>"; };
+		B39B00000000000000002204 /* ExtraIdentityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtraIdentityTests.swift; sourceTree = "<group>"; };
+		B39B00000000000000002205 /* UsageMeterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageMeterTests.swift; sourceTree = "<group>"; };
+		B39B00000000000000002206 /* KeepAwakeNameTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeepAwakeNameTests.swift; sourceTree = "<group>"; };
+		B39B00000000000000002207 /* PinControlLogicTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinControlLogicTests.swift; sourceTree = "<group>"; };
 		B39B00000000000000002009 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B39B0000000000000000200A /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		B39B0000000000000000200D /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
@@ -128,14 +146,20 @@
 				B39B00000000000000002108 /* FlipClockLogic.swift */,
 				B39B00000000000000002109 /* FlipClock.swift */,
 				B39B0000000000000000210A /* UsageStore.swift */,
-				B39B0000000000000000210B /* UsageMeter.swift */,
-				B39B0000000000000000210C /* MenuBarEnumerator.swift */,
-				B39B0000000000000000210D /* ImportStore.swift */,
-				B39B0000000000000000210E /* ImportStrip.swift */,
-				B39B0000000000000000210F /* SettingsSheet.swift */,
-				B39B00000000000000002110 /* AppModel.swift */,
-				B39B00000000000000002111 /* StatusBarController.swift */,
-				B39B00000000000000002112 /* BubblePresenter.swift */,
+				B39B0000000000000000210B /* UsageService.swift */,
+				B39B0000000000000000210C /* UsageMeter.swift */,
+				B39B0000000000000000210D /* MenuBarEnumerator.swift */,
+				B39B0000000000000000210E /* ExtraIdentity.swift */,
+				B39B0000000000000000210F /* ImportStore.swift */,
+				B39B00000000000000002110 /* ImportStripLogic.swift */,
+				B39B00000000000000002111 /* ImportStrip.swift */,
+				B39B00000000000000002112 /* BarChip.swift */,
+				B39B00000000000000002113 /* PinControlLogic.swift */,
+				B39B00000000000000002114 /* PinStore.swift */,
+				B39B00000000000000002115 /* SettingsSheet.swift */,
+				B39B00000000000000002116 /* AppModel.swift */,
+				B39B00000000000000002117 /* StatusBarController.swift */,
+				B39B00000000000000002118 /* BubblePresenter.swift */,
 				B39B00000000000000002009 /* Assets.xcassets */,
 				B39B0000000000000000200B /* MenuBar.entitlements */,
 				B39B0000000000000000200C /* Info.plist */,
@@ -148,8 +172,11 @@
 			children = (
 				B39B00000000000000002201 /* FlipClockLogicTests.swift */,
 				B39B00000000000000002202 /* ImportStoreTests.swift */,
-				B39B00000000000000002203 /* UsageMeterTests.swift */,
-				B39B00000000000000002204 /* KeepAwakeNameTests.swift */,
+				B39B00000000000000002203 /* ImportStripLogicTests.swift */,
+				B39B00000000000000002204 /* ExtraIdentityTests.swift */,
+				B39B00000000000000002205 /* UsageMeterTests.swift */,
+				B39B00000000000000002206 /* KeepAwakeNameTests.swift */,
+				B39B00000000000000002207 /* PinControlLogicTests.swift */,
 			);
 			path = MenuBarTests;
 			sourceTree = "<group>";
@@ -272,14 +299,20 @@
 				B39B00000000000000003108 /* FlipClockLogic.swift in Sources */,
 				B39B00000000000000003109 /* FlipClock.swift in Sources */,
 				B39B0000000000000000310A /* UsageStore.swift in Sources */,
-				B39B0000000000000000310B /* UsageMeter.swift in Sources */,
-				B39B0000000000000000310C /* MenuBarEnumerator.swift in Sources */,
-				B39B0000000000000000310D /* ImportStore.swift in Sources */,
-				B39B0000000000000000310E /* ImportStrip.swift in Sources */,
-				B39B0000000000000000310F /* SettingsSheet.swift in Sources */,
-				B39B00000000000000003110 /* AppModel.swift in Sources */,
-				B39B00000000000000003111 /* StatusBarController.swift in Sources */,
-				B39B00000000000000003112 /* BubblePresenter.swift in Sources */,
+				B39B0000000000000000310B /* UsageService.swift in Sources */,
+				B39B0000000000000000310C /* UsageMeter.swift in Sources */,
+				B39B0000000000000000310D /* MenuBarEnumerator.swift in Sources */,
+				B39B0000000000000000310E /* ExtraIdentity.swift in Sources */,
+				B39B0000000000000000310F /* ImportStore.swift in Sources */,
+				B39B00000000000000003110 /* ImportStripLogic.swift in Sources */,
+				B39B00000000000000003111 /* ImportStrip.swift in Sources */,
+				B39B00000000000000003112 /* BarChip.swift in Sources */,
+				B39B00000000000000003113 /* PinControlLogic.swift in Sources */,
+				B39B00000000000000003114 /* PinStore.swift in Sources */,
+				B39B00000000000000003115 /* SettingsSheet.swift in Sources */,
+				B39B00000000000000003116 /* AppModel.swift in Sources */,
+				B39B00000000000000003117 /* StatusBarController.swift in Sources */,
+				B39B00000000000000003118 /* BubblePresenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -289,8 +322,11 @@
 			files = (
 				B39B00000000000000003201 /* FlipClockLogicTests.swift in Sources */,
 				B39B00000000000000003202 /* ImportStoreTests.swift in Sources */,
-				B39B00000000000000003203 /* UsageMeterTests.swift in Sources */,
-				B39B00000000000000003204 /* KeepAwakeNameTests.swift in Sources */,
+				B39B00000000000000003203 /* ImportStripLogicTests.swift in Sources */,
+				B39B00000000000000003204 /* ExtraIdentityTests.swift in Sources */,
+				B39B00000000000000003205 /* UsageMeterTests.swift in Sources */,
+				B39B00000000000000003206 /* KeepAwakeNameTests.swift in Sources */,
+				B39B00000000000000003207 /* PinControlLogicTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

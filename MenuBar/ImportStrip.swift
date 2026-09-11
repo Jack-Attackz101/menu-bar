@@ -1,51 +1,84 @@
+import AppKit
 import SwiftUI
 
 /// Bookmarks-style strip: discover extras, click to import into Super Spade's bar.
 struct ImportStrip: View {
     @ObservedObject var model: AppModel
 
+    private var stripState: ImportStripState {
+        ImportStripLogic.state(
+            trusted: model.accessibilityTrusted,
+            prompted: model.permissionPrompted,
+            discovered: model.discovered,
+            imported: model.imported
+        )
+    }
+
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: 6) {
             HStack {
                 Text("Import")
                     .font(.system(size: Theme.rowSize, weight: .semibold, design: .default))
                     .foregroundStyle(Theme.text)
                 Spacer()
-                if model.accessibilityTrusted {
-                    Text("click to add")
-                        .font(.system(size: 10, weight: .regular, design: .default))
-                        .foregroundStyle(Theme.textMuted)
-                }
+                Text(ImportStripLogic.headline(stripState))
+                    .font(.system(size: 10, weight: .medium, design: .default))
+                    .foregroundStyle(Theme.textMuted)
             }
 
-            if !model.accessibilityTrusted {
-                PermissionGate(model: model)
-            } else {
-                workingStrip
+            switch stripState {
+            case .denied, .deniedWaiting:
+                PermissionGate(model: model, state: stripState)
+            case .grantedEmpty:
+                ImportWell {
+                    emptyState
+                }
+            case .grantedAvailable:
+                workingStrip(showAvailable: true)
+            case .grantedAllBookmarked:
+                workingStrip(showAvailable: false)
             }
         }
     }
 
-    private var workingStrip: some View {
-        VStack(alignment: .leading, spacing: 8) {
+    private var emptyState: some View {
+        VStack(spacing: 4) {
+            Text(ImportStripLogic.headline(.grantedEmpty))
+                .font(.system(size: 11, weight: .semibold, design: .default))
+                .foregroundStyle(Theme.text)
+            Text(ImportStripLogic.body(.grantedEmpty))
+                .font(.system(size: 10, weight: .regular, design: .default))
+                .foregroundStyle(Theme.textMuted)
+                .multilineTextAlignment(.center)
+                .lineLimit(3)
+                .fixedSize(horizontal: false, vertical: true)
+        }
+        .frame(maxWidth: .infinity)
+    }
+
+    private func workingStrip(showAvailable: Bool) -> some View {
+        VStack(alignment: .leading, spacing: 6) {
             if !model.imported.isEmpty {
                 scrollRow(items: model.imported, imported: true)
             }
-            let available = model.discovered.filter { extra in
-                !model.imported.contains(where: { $0.id == extra.id })
+            Text(ImportStripLogic.body(stripState))
+                .font(.system(size: 10, weight: .regular, design: .default))
+                .foregroundStyle(Theme.textMuted)
+                .lineLimit(3)
+                .fixedSize(horizontal: false, vertical: true)
+            if model.collapseExtras {
+                Text("Extras left of Super Spade are collapsed with a public spacer — not a per-icon steal.")
+                    .font(.system(size: 10, weight: .regular, design: .default))
+                    .foregroundStyle(Theme.textMuted)
+                    .lineLimit(2)
+                    .fixedSize(horizontal: false, vertical: true)
             }
-            if model.discovered.isEmpty {
-                Text("No other extras found. Some apps do not expose AXExtrasMenuBar.")
-                    .font(.system(size: 10, weight: .regular, design: .default))
-                    .foregroundStyle(Theme.textMuted)
-                    .fixedSize(horizontal: false, vertical: true)
-            } else if available.isEmpty {
-                Text("Every discovered extra is already in the bar. Right-click a chip to remove it.")
-                    .font(.system(size: 10, weight: .regular, design: .default))
-                    .foregroundStyle(Theme.textMuted)
-                    .fixedSize(horizontal: false, vertical: true)
-            } else {
-                scrollRow(items: available, imported: false)
+            if showAvailable {
+                let extras = ImportStripLogic.available(
+                    discovered: model.discovered,
+                    imported: model.imported
+                )
+                scrollRow(items: extras, imported: false)
             }
         }
     }
@@ -62,9 +95,7 @@ struct ImportStrip: View {
                         }
                     } label: {
                         HStack(spacing: 5) {
-                            ThinSpade()
-                                .stroke(Theme.text.opacity(0.8), lineWidth: 1)
-                                .frame(width: 8, height: 8)
+                            ExtraGlyph(extra: extra, size: 12)
                             Text(extra.title)
                                 .font(.system(size: 11, weight: .medium, design: .default))
                                 .lineLimit(1)
@@ -91,60 +122,88 @@ struct ImportStrip: View {
                             }
                         }
                     }
-                    .accessibilityLabel(imported ? "Imported \(extra.appName) \(extra.title)" : "Import \(extra.appName) \(extra.title)")
+                    .help(imported ? ExtraHideCopy.caption(extra.hideOutcome) : extra.iconSource.label)
+                    .accessibilityLabel(imported ? "Imported \(extra.appName) \(extra.title). \(ExtraHideCopy.caption(extra.hideOutcome))" : "Import \(extra.appName) \(extra.title)")
                 }
             }
         }
     }
 }
 
-struct PermissionGate: View {
-    @ObservedObject var model: AppModel
+struct ImportWell<Content: View>: View {
+    @ViewBuilder var content: () -> Content
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Text("Accessibility is needed to list other menu bar extras. Super Spade still cannot hide or steal them.")
-                .font(.system(size: 11, weight: .regular, design: .default))
-                .foregroundStyle(Theme.textMuted)
-                .fixedSize(horizontal: false, vertical: true)
-
-            HStack(spacing: 8) {
-                Button("Allow Accessibility") {
-                    model.requestAccessibility()
-                }
-                .buttonStyle(GlassPillButtonStyle())
-
-                Button("Open System Settings") {
-                    model.openSystemSettings()
-                }
-                .buttonStyle(GlassPillButtonStyle())
+        content()
+            .padding(8)
+            .frame(maxWidth: .infinity)
+            .background {
+                RoundedRectangle(cornerRadius: 12, style: .continuous)
+                    .fill(.ultraThinMaterial)
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 12, style: .continuous)
+                            .fill(Theme.glassDeep.opacity(0.35))
+                    }
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 12, style: .continuous)
+                            .strokeBorder(Theme.glassBorder.opacity(0.9), style: StrokeStyle(lineWidth: 0.7, dash: [4, 3]))
+                    }
             }
+    }
+}
 
-            if model.permissionPrompted {
-                Text("If listing does not appear after grant, quit and reopen Super Spade.")
+/// Compact denied card — must not consume the fixed bubble height.
+struct PermissionGate: View {
+    @ObservedObject var model: AppModel
+    var state: ImportStripState
+
+    var body: some View {
+        ImportWell {
+            VStack(alignment: .leading, spacing: 6) {
+                Text(ImportStripLogic.compactPrompt(state))
                     .font(.system(size: 10, weight: .regular, design: .default))
                     .foregroundStyle(Theme.textMuted)
+                    .lineLimit(2)
+                    .fixedSize(horizontal: false, vertical: true)
+
+                HStack(spacing: 6) {
+                    Button("Allow") {
+                        model.requestAccessibility()
+                    }
+                    .buttonStyle(GlassPillButtonStyle())
+
+                    Button("Settings") {
+                        model.openSystemSettings()
+                    }
+                    .buttonStyle(GlassPillButtonStyle())
+
+                    Button("Recheck") {
+                        model.refreshPermissionsAndExtras()
+                    }
+                    .buttonStyle(GlassPillButtonStyle())
+
+                    if state == .deniedWaiting {
+                        Button("Quit") {
+                            NSApplication.shared.terminate(nil)
+                        }
+                        .buttonStyle(GlassPillButtonStyle())
+                    }
+                }
             }
         }
-        .padding(10)
-        .background {
-            RoundedRectangle(cornerRadius: 14, style: .continuous)
-                .fill(Color.white.opacity(0.08))
-                .overlay {
-                    RoundedRectangle(cornerRadius: 14, style: .continuous)
-                        .strokeBorder(Theme.glassBorder, lineWidth: 0.7)
-                }
-        }
+        .accessibilityElement(children: .contain)
+        .accessibilityLabel(ImportStripLogic.headline(state))
+        .accessibilityHint(ImportStripLogic.body(state))
     }
 }
 
 struct GlassPillButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .font(.system(size: 11, weight: .semibold, design: .default))
+            .font(.system(size: 10, weight: .semibold, design: .default))
             .foregroundStyle(Theme.text)
-            .padding(.horizontal, 10)
-            .padding(.vertical, 6)
+            .padding(.horizontal, 8)
+            .padding(.vertical, 4)
             .background {
                 Capsule()
                     .fill(.ultraThinMaterial)

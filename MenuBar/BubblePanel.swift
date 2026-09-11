@@ -12,7 +12,10 @@ struct BubblePanel: View {
                 if model.showingSettings {
                     SettingsSheet(model: model)
                 } else {
-                    mainStack
+                    ScrollView {
+                        mainStack
+                    }
+                    .scrollIndicators(.hidden)
                 }
 
                 Button {
@@ -31,8 +34,11 @@ struct BubblePanel: View {
                         }
                 }
                 .buttonStyle(.plain)
+                .fixedSize()
+                .contentShape(Circle())
                 .accessibilityLabel("Settings")
                 .offset(x: 2, y: -2)
+                .zIndex(1)
             }
         }
         .onAppear {
@@ -45,25 +51,51 @@ struct BubblePanel: View {
     }
 
     private var mainStack: some View {
-        VStack(alignment: .leading, spacing: 12) {
+        VStack(alignment: .leading, spacing: 10) {
             ImportStrip(model: model)
 
             GlassCard {
-                FlipClockView()
+                VStack(alignment: .leading, spacing: 8) {
+                    pinHeader(.flipClock)
+                    FlipClockView()
+                }
             }
 
             GlassCard {
-                DualUsageMeter(claude: model.claude, codex: model.codex)
+                VStack(alignment: .leading, spacing: 8) {
+                    pinHeader(.usage)
+                    DualUsageMeter(
+                        claude: model.claude,
+                        codex: model.codex,
+                        onRetry: { model.refreshUsage() }
+                    )
+                }
             }
 
-            HStack(spacing: 8) {
-                KeepAwakeWidget(keepAwake: keepAwake)
-                WeatherStub()
-                    .frame(width: 118)
+            HStack(alignment: .top, spacing: 8) {
+                VStack(alignment: .leading, spacing: 6) {
+                    PinAffordance(widget: .keepAwake, model: model)
+                    KeepAwakeWidget(keepAwake: keepAwake)
+                }
+                VStack(alignment: .leading, spacing: 6) {
+                    PinAffordance(widget: .weather, model: model)
+                    WeatherStub()
+                        .frame(width: 118)
+                }
             }
 
-            Spacer(minLength: 0)
         }
         .padding(.trailing, 28)
+        .padding(.bottom, 4)
+    }
+
+    private func pinHeader(_ widget: PinnableWidget) -> some View {
+        HStack(spacing: 8) {
+            Text(widget.title)
+                .font(.system(size: 11, weight: .semibold, design: .default))
+                .foregroundStyle(Theme.textMuted)
+            Spacer(minLength: 8)
+            PinAffordance(widget: widget, model: model)
+        }
     }
 }

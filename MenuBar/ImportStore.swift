@@ -5,11 +5,27 @@ struct DiscoveredExtra: Identifiable, Hashable, Codable, Sendable {
     var id: String
     var title: String
     var appName: String
+    var bundleId: String?
+    var iconPNG: Data?
+    var iconSource: ExtraIconSource
+    var hideOutcome: ExtraHideOutcome
 
-    init(id: String, title: String, appName: String) {
+    init(
+        id: String,
+        title: String,
+        appName: String,
+        bundleId: String? = nil,
+        iconPNG: Data? = nil,
+        iconSource: ExtraIconSource = .none,
+        hideOutcome: ExtraHideOutcome = .stillVisible
+    ) {
         self.id = id
         self.title = title
         self.appName = appName
+        self.bundleId = bundleId
+        self.iconPNG = iconPNG
+        self.iconSource = iconSource
+        self.hideOutcome = hideOutcome
     }
 
     var bookmarkLabel: String {
@@ -17,7 +33,7 @@ struct DiscoveredExtra: Identifiable, Hashable, Codable, Sendable {
     }
 }
 
-/// Persists click-imported extras. Does not hide, move, or embed other apps' status items.
+/// Persists click-imported extras (icon PNG + honest hide outcome).
 struct ImportStore: Sendable {
     private let defaults: UserDefaults
     private let key: String
@@ -35,7 +51,9 @@ struct ImportStore: Sendable {
     @discardableResult
     func importExtra(_ extra: DiscoveredExtra) -> [DiscoveredExtra] {
         var items = load()
-        if items.contains(where: { $0.id == extra.id }) {
+        if let index = items.firstIndex(where: { $0.id == extra.id }) {
+            items[index] = extra
+            save(items)
             return items
         }
         items.append(extra)

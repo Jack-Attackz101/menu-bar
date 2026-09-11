@@ -12,7 +12,14 @@ DerivedData/
 # Swift / SPM
 .build/
 .swiftpm/
+scripts/__pycache__/
+__pycache__/
+*.pyc
 
 # OS
 .DS_Store
 **/.DS_Store
+
+# Local usage secrets / snapshots (never commit)
+usage.env
+**/.config/super-spade/

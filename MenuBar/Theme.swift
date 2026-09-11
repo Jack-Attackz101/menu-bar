@@ -14,22 +14,24 @@ enum Theme {
     static let sky = Color(red: 0.49, green: 0.83, blue: 0.99)
     static let teal = Color(red: 0.37, green: 0.91, blue: 0.83)
 
-    static let glassFill = Color.white.opacity(0.16)
-    static let glassBorder = Color.white.opacity(0.28)
-    static let text = Color.white.opacity(0.94)
+    static let glassFill = Color.white.opacity(0.12)
+    static let glassBorder = Color.white.opacity(0.38)
+    static let glassDeep = Color.black.opacity(0.34)
+    static let glassSheen = Color.white.opacity(0.24)
+    static let text = Color.white.opacity(0.95)
     static let textMuted = Color.white.opacity(0.62)
     static let liveDot = Color(red: 0.29, green: 0.87, blue: 0.50)
-    static let keepAwakeTint = Color(red: 1.0, green: 0.62, blue: 0.48).opacity(0.38)
-    static let weatherTint = Color(red: 125 / 255, green: 211 / 255, blue: 252 / 255).opacity(0.28)
+    static let keepAwakeTint = Color(red: 1.0, green: 0.62, blue: 0.48).opacity(0.32)
+    static let weatherTint = Color(red: 125 / 255, green: 211 / 255, blue: 252 / 255).opacity(0.24)
 
-    static let bubbleWidth: CGFloat = 368
-    static let bubbleHeight: CGFloat = 468
-    static let bubbleRadius: CGFloat = 32
-    static let cardRadius: CGFloat = 18
+    static let bubbleWidth: CGFloat = 360
+    static let bubbleHeight: CGFloat = 508
+    static let bubbleRadius: CGFloat = 22
+    static let cardRadius: CGFloat = 12
     static let headerSize: CGFloat = 14
     static let rowSize: CGFloat = 12
-    static let flipDigitWidth: CGFloat = 46
-    static let flipDigitHeight: CGFloat = 64
+    static let flipDigitWidth: CGFloat = 50
+    static let flipDigitHeight: CGFloat = 76
 }
 
 enum KeepAwakeIdentity {
