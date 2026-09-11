@@ -3,7 +3,7 @@ import Foundation
 /// Pin-to-bar control metrics and chip order. Pure so Finn can unit-test without AppKit.
 enum PinControlLogic {
     /// Visible glass chip — matches the locked on-bar Sol stamp, not a chunky pill.
-    static let visualHeight: CGFloat = 22
+    static let visualHeight: CGFloat = 20
     static let fontSize: CGFloat = 11
     static let paddingX: CGFloat = 10
 
@@ -13,6 +13,11 @@ enum PinControlLogic {
 
     /// Pin / unpin must not destroy the host spade or dismiss the bubble.
     static let preservesHostAndBubbleOnPinChange = true
+
+    /// Unpin stays a 44×28 target but drops the filled glass pill.
+    static func usesQuietChrome(pinned: Bool) -> Bool {
+        pinned
+    }
 
     static func accessibilityLabel(widget: PinnableWidget, pinned: Bool) -> String {
         pinned ? "Unpin \(widget.title)" : "Pin \(widget.title) to menu bar"

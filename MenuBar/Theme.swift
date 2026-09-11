@@ -30,8 +30,8 @@ enum Theme {
     static let cardRadius: CGFloat = 12
     static let headerSize: CGFloat = 14
     static let rowSize: CGFloat = 12
-    static let flipDigitWidth: CGFloat = 46
-    static let flipDigitHeight: CGFloat = 70
+    static let flipDigitWidth: CGFloat = 50
+    static let flipDigitHeight: CGFloat = 76
 }
 
 enum KeepAwakeIdentity {

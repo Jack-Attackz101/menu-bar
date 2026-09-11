@@ -63,7 +63,7 @@ enum MenuBarSpade {
         let view = MenuBarSpadeView()
         let renderer = ImageRenderer(content: view)
         renderer.scale = scale
-        let image = renderer.nsImage ?? NSImage(size: NSSize(width: 28, height: 22))
+        let image = renderer.nsImage ?? NSImage(size: NSSize(width: 28, height: ThinChipTokens.height))
         image.isTemplate = false
         return image
     }

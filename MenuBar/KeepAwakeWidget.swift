@@ -22,8 +22,12 @@ struct KeepAwakeWidget: View {
                 RoundedRectangle(cornerRadius: 14, style: .continuous)
                     .fill(.ultraThinMaterial)
                     .overlay {
+                        AuroraMesh(intensity: 0.42)
+                            .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+                    }
+                    .overlay {
                         RoundedRectangle(cornerRadius: 14, style: .continuous)
-                            .fill(Theme.glassDeep.opacity(0.18))
+                            .fill(Theme.glassDeep.opacity(0.12))
                     }
                     .overlay {
                         RoundedRectangle(cornerRadius: 14, style: .continuous)
@@ -31,7 +35,7 @@ struct KeepAwakeWidget: View {
                     }
                     .overlay {
                         RoundedRectangle(cornerRadius: 14, style: .continuous)
-                            .strokeBorder(Theme.glassBorder, lineWidth: 0.85)
+                            .strokeBorder(Theme.glassBorder, lineWidth: 0.55)
                     }
             }
         }
@@ -63,8 +67,12 @@ struct WeatherStub: View {
             RoundedRectangle(cornerRadius: 14, style: .continuous)
                 .fill(.ultraThinMaterial)
                 .overlay {
+                    AuroraMesh(intensity: 0.42)
+                        .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+                }
+                .overlay {
                     RoundedRectangle(cornerRadius: 14, style: .continuous)
-                        .fill(Theme.glassDeep.opacity(0.16))
+                        .fill(Theme.glassDeep.opacity(0.10))
                 }
                 .overlay {
                     RoundedRectangle(cornerRadius: 14, style: .continuous)
@@ -72,7 +80,7 @@ struct WeatherStub: View {
                 }
                 .overlay {
                     RoundedRectangle(cornerRadius: 14, style: .continuous)
-                        .strokeBorder(Theme.glassBorder, lineWidth: 0.85)
+                        .strokeBorder(Theme.glassBorder, lineWidth: 0.55)
                 }
         }
         .accessibilityLabel("Weather stub, 72 degrees, clear")

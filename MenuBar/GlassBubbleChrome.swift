@@ -2,19 +2,23 @@ import SwiftUI
 
 /// Mesh / aurora wash — peach, pink, lavender, sky, teal. No cream or mango fill.
 struct AuroraMesh: View {
+    var intensity: Double = 1
+
     var body: some View {
         ZStack {
-            Color(red: 0.09, green: 0.07, blue: 0.14).opacity(0.78)
-            blob(Theme.peach, x: -88, y: -76, size: 210)
-            blob(Theme.pink, x: 104, y: -68, size: 198)
-            blob(Theme.lavender, x: 28, y: 36, size: 220)
-            blob(Theme.sky, x: -70, y: 92, size: 190)
-            blob(Theme.teal, x: 96, y: 112, size: 176)
+            Color(red: 0.07, green: 0.05, blue: 0.12).opacity(0.40 * intensity)
+            blob(Theme.peach, x: -98, y: -86, size: 268)
+            blob(Theme.pink, x: 118, y: -78, size: 250)
+            blob(Theme.lavender, x: 18, y: 32, size: 286)
+            blob(Theme.sky, x: -86, y: 112, size: 236)
+            blob(Theme.teal, x: 112, y: 132, size: 224)
+            blob(Theme.pink, x: -36, y: 18, size: 168)
+            blob(Theme.sky, x: 72, y: -16, size: 158)
             RadialGradient(
-                colors: [Color.clear, Color.black.opacity(0.42)],
+                colors: [Color.clear, Color.black.opacity(0.16 * intensity)],
                 center: .center,
-                startRadius: 28,
-                endRadius: 210
+                startRadius: 46,
+                endRadius: 236
             )
         }
         .allowsHitTesting(false)
@@ -22,10 +26,44 @@ struct AuroraMesh: View {
 
     private func blob(_ color: Color, x: CGFloat, y: CGFloat, size: CGFloat) -> some View {
         Circle()
-            .fill(color.opacity(0.52))
+            .fill(color.opacity(0.74 * intensity))
             .frame(width: size, height: size)
-            .blur(radius: 32)
+            .blur(radius: 48)
             .offset(x: x, y: y)
+    }
+}
+
+/// Shared frost + aurora stack for the bubble and tiles. Deeper bleed, still no mango cream/ink.
+struct AuroraGlassFill: View {
+    var radius: CGFloat
+    var intensity: Double = 1
+    var materialOpacity: Double = 1
+
+    var body: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: radius, style: .continuous)
+                .fill(.ultraThinMaterial)
+                .opacity(materialOpacity)
+            RoundedRectangle(cornerRadius: radius, style: .continuous)
+                .fill(Theme.glassDeep.opacity(0.16 * intensity))
+            AuroraMesh(intensity: intensity)
+                .clipShape(RoundedRectangle(cornerRadius: radius, style: .continuous))
+            RoundedRectangle(cornerRadius: radius, style: .continuous)
+                .fill(Theme.glassFill.opacity(0.22))
+            RoundedRectangle(cornerRadius: radius, style: .continuous)
+                .fill(
+                    LinearGradient(
+                        colors: [Theme.glassSheen.opacity(0.88 * intensity), Color.clear],
+                        startPoint: .top,
+                        endPoint: .center
+                    )
+                )
+            RoundedRectangle(cornerRadius: radius, style: .continuous)
+                .strokeBorder(Theme.glassBorder.opacity(0.92), lineWidth: 0.55)
+            RoundedRectangle(cornerRadius: max(radius - 2, 1), style: .continuous)
+                .strokeBorder(Color.white.opacity(0.12 * intensity), lineWidth: 0.45)
+                .padding(1.5)
+        }
     }
 }
 
@@ -37,35 +75,12 @@ struct GlassCard<Content: View>: View {
         content()
             .padding(10)
             .background {
-                RoundedRectangle(cornerRadius: radius, style: .continuous)
-                    .fill(.ultraThinMaterial)
-                    .overlay {
-                        RoundedRectangle(cornerRadius: radius, style: .continuous)
-                            .fill(Theme.glassDeep.opacity(0.18))
-                    }
-                    .overlay {
-                        RoundedRectangle(cornerRadius: radius, style: .continuous)
-                            .fill(Theme.glassFill)
-                    }
-                    .overlay(alignment: .top) {
-                        RoundedRectangle(cornerRadius: radius, style: .continuous)
-                            .fill(
-                                LinearGradient(
-                                    colors: [Theme.glassSheen.opacity(0.7), Color.clear],
-                                    startPoint: .top,
-                                    endPoint: .center
-                                )
-                            )
-                    }
-                    .overlay {
-                        RoundedRectangle(cornerRadius: radius, style: .continuous)
-                            .strokeBorder(Theme.glassBorder, lineWidth: 0.6)
-                    }
+                AuroraGlassFill(radius: radius, intensity: 0.62)
             }
     }
 }
 
-/// Sharper frosted aurora bubble. macOS 14 path — material + overlay, no `containerBackground`.
+/// Deeper frosted aurora bubble. macOS 14 path — material + overlay, no `containerBackground`.
 struct GlassBubbleChrome<Content: View>: View {
     @ViewBuilder var content: () -> Content
 
@@ -74,22 +89,8 @@ struct GlassBubbleChrome<Content: View>: View {
             .padding(12)
             .frame(width: Theme.bubbleWidth, height: Theme.bubbleHeight, alignment: .top)
             .background {
-                ZStack {
-                    RoundedRectangle(cornerRadius: Theme.bubbleRadius, style: .continuous)
-                        .fill(.ultraThinMaterial)
-                    RoundedRectangle(cornerRadius: Theme.bubbleRadius, style: .continuous)
-                        .fill(Theme.glassDeep.opacity(0.38))
-                    AuroraMesh()
-                        .clipShape(RoundedRectangle(cornerRadius: Theme.bubbleRadius, style: .continuous))
-                    RoundedRectangle(cornerRadius: Theme.bubbleRadius, style: .continuous)
-                        .fill(Theme.glassFill.opacity(0.42))
-                    RoundedRectangle(cornerRadius: Theme.bubbleRadius, style: .continuous)
-                        .strokeBorder(Color.white.opacity(0.42), lineWidth: 0.7)
-                    RoundedRectangle(cornerRadius: Theme.bubbleRadius - 2, style: .continuous)
-                        .strokeBorder(Color.white.opacity(0.08), lineWidth: 0.5)
-                        .padding(2)
-                }
+                AuroraGlassFill(radius: Theme.bubbleRadius, intensity: 1)
             }
-            .shadow(color: Color.black.opacity(0.30), radius: 16, x: 0, y: 8)
+            .shadow(color: Color.black.opacity(0.34), radius: 18, x: 0, y: 9)
     }
 }

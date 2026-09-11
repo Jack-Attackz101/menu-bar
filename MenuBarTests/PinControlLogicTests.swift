@@ -4,9 +4,13 @@ import XCTest
 final class PinControlLogicTests: XCTestCase {
     func testHitTargetIsLargerThanTheVisualChip() {
         XCTAssertEqual(PinControlLogic.visualHeight, ThinChipTokens.height)
+        XCTAssertEqual(ThinChipTokens.height, 20)
+        XCTAssertEqual(ThinChipTokens.stroke, 0.4)
         XCTAssertGreaterThanOrEqual(PinControlLogic.minHitHeight, 28)
         XCTAssertGreaterThanOrEqual(PinControlLogic.minHitWidth, 44)
         XCTAssertGreaterThan(PinControlLogic.minHitHeight, PinControlLogic.visualHeight)
+        XCTAssertTrue(PinControlLogic.usesQuietChrome(pinned: true))
+        XCTAssertFalse(PinControlLogic.usesQuietChrome(pinned: false))
     }
 
     func testPinLabelsStayUniquePerWidget() {

@@ -49,8 +49,30 @@ def main() -> int:
     )
     check(
         "visual_height_matches_thin_chip",
-        "visualHeight: CGFloat = 22" in logic and "static let height: CGFloat = 22" in bar,
-        "on-bar Apple-thin 22pt stamp must stay",
+        "visualHeight: CGFloat = 20" in logic and "static let height: CGFloat = 20" in bar,
+        "on-bar Apple-thin 20px stamp must stay",
+    )
+    check(
+        "hairline_stroke",
+        "static let stroke: CGFloat = 0.4" in bar,
+        "on-bar chips use a hairline stroke, not a chunky pill outline",
+    )
+    check(
+        "quiet_unpin",
+        "usesQuietChrome" in logic and "usesQuietChrome" in bar and 'Text("Unpin")' in bar,
+        "Unpin must drop the filled glass pill",
+    )
+    flip = read("MenuBar/FlipClock.swift")
+    chrome = read("MenuBar/GlassBubbleChrome.swift")
+    check(
+        "object_card_cassettes",
+        "FlipCardCassette" in flip and "stampedDigit" in flip and "housing" in flip,
+        "flip clock must be stamped object cards, not stacked plain digits",
+    )
+    check(
+        "richer_glass_bleed",
+        "struct AuroraGlassFill" in chrome and "AuroraMesh(intensity:" in chrome,
+        "bubble/tiles need deeper frost/aurora bleed",
     )
     check(
         "unique_pin_identifiers",

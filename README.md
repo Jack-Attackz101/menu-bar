@@ -22,13 +22,13 @@ This PR is a **new slice**. It does not continue PR #2 (chips-on-bar / hover isl
 | Menu bar | **One** thin ♠ by default. Optional Apple-thin chips when pinned (keep-awake / flip clock / usage / weather) |
 | Click | Borderless `NSPanel` sharper glass bubble (not hover) |
 | Top strip | Real AX extras only. Click captures icon + tries hide (AXHidden, else public left-of-spade spacer) |
-| Flip clock | Object split-flap cards (housing, hinge, two-phase flip) — not a plain digital clock |
+| Flip clock | Stamped split-flap **object cards** (cassette housing, hinge, two-phase flip) — not stacked plain digits |
 | Usage | **Claude** + **Codex** dual **bar** meters (not CPU). empty / loading / live / demo / error + last-updated + % used / remaining. Optional env or `~/.config/super-spade/usage.env`. Secrets are not stored |
 | Keep awake | Real IOKit `PreventUserIdleSystemSleep` + `PreventUserIdleDisplaySleep`, process-owned. `/usr/bin/caffeinate -dims` if IOKit fails |
 | Weather | Optional stub (`72°` / Clear · stub) |
 | Settings | Gear in the corner. Header is lowercase **super spade** |
 
-Chrome is sharper frost/aurora (tighter radius, hairline stroke). Peach / pink / lavender / sky / teal. No cream `#FFF9ED`, no ink stamp, no mango fruit, no `#FFC928` as brand. On-bar chips use the locked Sol stamp in `ThinChipTokens` (22pt, not chunky pills). See [`docs/THIN-CHIPS.md`](docs/THIN-CHIPS.md).
+Chrome is deeper frost/aurora bleed (tighter radius, hairline stroke). Peach / pink / lavender / sky / teal. No cream `#FFF9ED`, no ink stamp, no mango fruit, no `#FFC928` as brand. On-bar chips use the locked Sol stamp in `ThinChipTokens` (20px hairline, not chunky pills). See [`docs/THIN-CHIPS.md`](docs/THIN-CHIPS.md).
 
 ## Permissions
 
@@ -78,8 +78,8 @@ python3 scripts/verify_pin_control.py
 Do these on a Mac without waiting on any later visual PR. Product name must be Super Spade.
 
 1. **Compile** — `MenuBar` scheme, macOS 14+. Build must succeed (no `highlightsBy`, no 15-only `containerBackground`, `AppDelegate` uses `MainActor.assumeIsolated`, `AppModel` init assigns from locals). No Swift 6 CF-cast failures (`CFGetTypeID` / `unsafeBitCast` to `CFArray` unchanged).
-2. **One refined ♠** by default. Click opens the sharper glass bubble. Pin keep-awake / clock / usage / weather — they land as **Apple-thin 22pt chips**, not chunky pills. Unpin removes them.
-3. **Wow-frame visible** — tighter frost/aurora; object flip clock; Claude/Codex as **bar** meters.
+2. **One refined ♠** by default. Click opens the deeper-frost glass bubble. Pin keep-awake / clock / usage / weather — they land as **Apple-thin 20px hairline chips**, not chunky pills. Unpin is quiet text in the bubble and removes the chip.
+3. **Wow-frame visible** — deeper frost/aurora bleed; stamped object flip-clock cards; Claude/Codex as **bar** meters.
 4. **Meter states**
    - Default (no keys): **demo** — Claude / Codex labels, percent used + remaining, last-updated, not CPU.
    - `SUPER_SPADE_USAGE_EMPTY=1`: **empty** bar, “No key”.
@@ -103,7 +103,7 @@ pmset -g assertions
 2. **One ♠** by default. Optional thin pinned chips. Not a default five-chip host. Not hover islands.
 3. **Click opens the sharper bubble** — tighter frost/aurora. Peach / pink / lavender / sky / teal. No cream, ink, or mango chrome.
 4. **Import strip** — denied / empty / granted as above.
-5. **Flip clock** — digits are split cards that flip, not a single digital label.
+5. **Flip clock** — digits are stamped object cards in cassettes that flip, not stacked plain digits.
 6. **Claude + Codex** — dual bar meter, those two labels, not CPU.
 7. **Keep-awake** — click the control. Close the bubble — assertion stays. Click again (or Quit) to clear.
 8. **Settings** — gear in the corner. Header is lowercase **super spade**. Quit is muted.

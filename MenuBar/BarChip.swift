@@ -3,14 +3,14 @@ import SwiftUI
 
 /// Locked Sol thin-chip stamp. Drop fill/border/height here — hosts stay Apple-thin, not chunky pills.
 enum ThinChipTokens {
-    static let height: CGFloat = 22
+    static let height: CGFloat = 20
     static let paddingX: CGFloat = 5
     static let spacing: CGFloat = 3
-    static let icon: CGFloat = 11
-    static let font: CGFloat = 11
-    static let stroke: CGFloat = 0.55
-    static let fill = Color.white.opacity(0.10)
-    static let border = Color.white.opacity(0.30)
+    static let icon: CGFloat = 10
+    static let font: CGFloat = 10
+    static let stroke: CGFloat = 0.4
+    static let fill = Color.white.opacity(0.08)
+    static let border = Color.white.opacity(0.26)
 }
 
 struct CompactThinGlass: View {
@@ -127,19 +127,30 @@ struct PinAffordance: View {
     @ObservedObject var model: AppModel
 
     var body: some View {
+        let pinned = model.isPinned(widget)
         Button {
-            model.setPinned(widget, !model.isPinned(widget))
+            model.setPinned(widget, !pinned)
         } label: {
-            Text(model.isPinned(widget) ? "Unpin" : "Pin")
-                .font(.system(size: PinControlLogic.fontSize, weight: .semibold, design: .default))
-                .foregroundStyle(Theme.text)
-                .padding(.horizontal, PinControlLogic.paddingX)
-                .frame(height: PinControlLogic.visualHeight)
-                .background {
-                    CompactThinGlass()
+            Group {
+                if PinControlLogic.usesQuietChrome(pinned: pinned) {
+                    Text("Unpin")
+                        .font(.system(size: PinControlLogic.fontSize, weight: .regular, design: .default))
+                        .foregroundStyle(Theme.textMuted)
+                        .padding(.horizontal, 6)
+                        .frame(height: PinControlLogic.visualHeight)
+                } else {
+                    Text("Pin")
+                        .font(.system(size: PinControlLogic.fontSize, weight: .medium, design: .default))
+                        .foregroundStyle(Theme.text)
+                        .padding(.horizontal, PinControlLogic.paddingX)
+                        .frame(height: PinControlLogic.visualHeight)
+                        .background {
+                            CompactThinGlass()
+                        }
                 }
-                .frame(minWidth: PinControlLogic.minHitWidth, minHeight: PinControlLogic.minHitHeight)
-                .contentShape(Rectangle())
+            }
+            .frame(minWidth: PinControlLogic.minHitWidth, minHeight: PinControlLogic.minHitHeight)
+            .contentShape(Rectangle())
         }
         .buttonStyle(PinTapStyle())
         .accessibilityLabel(PinControlLogic.accessibilityLabel(widget: widget, pinned: model.isPinned(widget)))
