@@ -34,8 +34,11 @@ struct BubblePanel: View {
                         }
                 }
                 .buttonStyle(.plain)
+                .fixedSize()
+                .contentShape(Circle())
                 .accessibilityLabel("Settings")
                 .offset(x: 2, y: -2)
+                .zIndex(1)
             }
         }
         .onAppear {
@@ -53,20 +56,14 @@ struct BubblePanel: View {
 
             GlassCard {
                 VStack(alignment: .leading, spacing: 8) {
-                    HStack {
-                        Spacer(minLength: 0)
-                        PinAffordance(widget: .flipClock, model: model)
-                    }
+                    pinHeader(.flipClock)
                     FlipClockView()
                 }
             }
 
             GlassCard {
                 VStack(alignment: .leading, spacing: 8) {
-                    HStack {
-                        Spacer(minLength: 0)
-                        PinAffordance(widget: .usage, model: model)
-                    }
+                    pinHeader(.usage)
                     DualUsageMeter(
                         claude: model.claude,
                         codex: model.codex,
@@ -90,5 +87,15 @@ struct BubblePanel: View {
         }
         .padding(.trailing, 28)
         .padding(.bottom, 4)
+    }
+
+    private func pinHeader(_ widget: PinnableWidget) -> some View {
+        HStack(spacing: 8) {
+            Text(widget.title)
+                .font(.system(size: 11, weight: .semibold, design: .default))
+                .foregroundStyle(Theme.textMuted)
+            Spacer(minLength: 8)
+            PinAffordance(widget: widget, model: model)
+        }
     }
 }

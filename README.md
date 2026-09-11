@@ -70,6 +70,7 @@ Linux checks:
 ```bash
 python3 scripts/verify_flip_clock.py
 python3 scripts/verify_usage_and_import.py
+python3 scripts/verify_pin_control.py
 ```
 
 ## Finn Mini — smoke (this slice)

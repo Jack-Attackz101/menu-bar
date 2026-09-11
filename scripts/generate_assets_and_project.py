@@ -170,6 +170,7 @@ SOURCES = [
     "ImportStripLogic.swift",
     "ImportStrip.swift",
     "BarChip.swift",
+    "PinControlLogic.swift",
     "PinStore.swift",
     "SettingsSheet.swift",
     "AppModel.swift",
@@ -184,6 +185,7 @@ TESTS = [
     "ExtraIdentityTests.swift",
     "UsageMeterTests.swift",
     "KeepAwakeNameTests.swift",
+    "PinControlLogicTests.swift",
 ]
 
 

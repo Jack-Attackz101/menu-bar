@@ -131,15 +131,27 @@ struct PinAffordance: View {
             model.setPinned(widget, !model.isPinned(widget))
         } label: {
             Text(model.isPinned(widget) ? "Unpin" : "Pin")
-                .font(.system(size: 9, weight: .semibold, design: .default))
+                .font(.system(size: PinControlLogic.fontSize, weight: .semibold, design: .default))
                 .foregroundStyle(Theme.text)
-                .padding(.horizontal, 6)
-                .frame(height: 16)
+                .padding(.horizontal, PinControlLogic.paddingX)
+                .frame(height: PinControlLogic.visualHeight)
                 .background {
                     CompactThinGlass()
                 }
+                .frame(minWidth: PinControlLogic.minHitWidth, minHeight: PinControlLogic.minHitHeight)
+                .contentShape(Rectangle())
         }
-        .buttonStyle(.plain)
-        .accessibilityLabel(model.isPinned(widget) ? "Unpin \(widget.title)" : "Pin \(widget.title) to menu bar")
+        .buttonStyle(PinTapStyle())
+        .accessibilityLabel(PinControlLogic.accessibilityLabel(widget: widget, pinned: model.isPinned(widget)))
+        .accessibilityIdentifier(PinControlLogic.accessibilityIdentifier(widget: widget))
+    }
+}
+
+/// Immediate tap inside the bubble ScrollView — default Button waits to see if the drag is a scroll.
+private struct PinTapStyle: PrimitiveButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .contentShape(Rectangle())
+            .onTapGesture(perform: configuration.trigger)
     }
 }

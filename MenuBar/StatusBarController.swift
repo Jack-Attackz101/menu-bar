@@ -19,10 +19,15 @@ final class StatusBarController: NSObject {
         startPermissionWatch()
         startChipClock()
         AppModel.shared.$pinned
-            .combineLatest(AppModel.shared.$collapseExtras)
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] _, _ in
-                self?.rebuildItems()
+            .sink { [weak self] desired in
+                self?.syncChips(desired)
+            }
+            .store(in: &observers)
+        AppModel.shared.$collapseExtras
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.applySpacerLength()
             }
             .store(in: &observers)
         AppModel.shared.$claude
@@ -53,7 +58,6 @@ final class StatusBarController: NSObject {
 
     private func rebuildItems() {
         let visible = presenter.isVisible
-        let anchor = host?.button
         if visible {
             presenter.dismiss()
         }
@@ -61,14 +65,14 @@ final class StatusBarController: NSObject {
 
         // First created sits rightmost. Spacer last so it is leftmost of Super Spade.
         installHost()
-        for widget in PinnableWidget.allCases.reversed() where AppModel.shared.isPinned(widget) {
+        for widget in PinControlLogic.chipInstallOrder(AppModel.shared.pinned) {
             installChip(widget)
         }
         installSpacer()
         refreshChipImages()
         applySpacerLength()
         if visible {
-            presenter.show(under: anchor ?? host?.button)
+            presenter.show(under: host?.button)
         }
     }
 
@@ -111,6 +115,25 @@ final class StatusBarController: NSObject {
         item.button?.target = self
         item.button?.action = #selector(clickSpacer)
         spacer = item
+    }
+
+    /// Recreate chips + spacer only. Host and the open bubble stay — full rebuild ate clock/usage pin clicks.
+    private func syncChips(_ desired: Set<PinnableWidget>) {
+        guard Set(chips.keys) != desired else { return }
+        if let spacer {
+            NSStatusBar.system.removeStatusItem(spacer)
+            self.spacer = nil
+        }
+        for item in chips.values {
+            NSStatusBar.system.removeStatusItem(item)
+        }
+        chips = [:]
+        for widget in PinControlLogic.chipInstallOrder(desired) {
+            installChip(widget)
+        }
+        installSpacer()
+        refreshChipImages()
+        applySpacerLength()
     }
 
     private func installChip(_ widget: PinnableWidget) {

@@ -27,4 +27,6 @@ Default bar is still **one ♠**. From the bubble (or Settings), pin:
 - Claude / Codex — `C 42%  X 28%`, opens the bubble
 - Weather — `72°`, opens the bubble
 
-Unpin removes that `NSStatusItem`.
+Unpin removes that `NSStatusItem`. Pinning recreates chips + the public spacer only — the host ♠ and open bubble stay.
+
+Bubble **Pin / Unpin** chips keep the 22pt glass stamp with a 44×28 hit box (`PinControlLogic`) so clock / usage are not 16pt trailing targets.
